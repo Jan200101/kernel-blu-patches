@@ -1,0 +1,110 @@
+From 92ff20725da657e291e9d27a07825bd7f63ebd0e Mon Sep 17 00:00:00 2001
+From: Jan200101 <sentrycraft123@gmail.com>
+Date: Sat, 21 Dec 2024 15:28:35 +0100
+Subject: [PATCH] drm/i915/quirks: disable async page flipping on some multi
+ GPU devices
+
+Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
+---
+ .../drm/i915/display/intel_display_driver.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_quirks.c   | 20 +++++++++++++++++++
+ drivers/gpu/drm/i915/i915_params.c            |  4 ++++
+ drivers/gpu/drm/i915/i915_params.h            |  1 +
+ drivers/gpu/drm/xe/xe_device_types.h          |  3 +++
+ 5 files changed, 29 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+index 069426d9260b..1f707c670bc1 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -127,7 +127,7 @@ static void intel_mode_config_init(struct drm_i915_private *i915)
+ 	mode_config->funcs = &intel_mode_funcs;
+ 	mode_config->helper_private = &intel_mode_config_funcs;
+ 
+-	mode_config->async_page_flip = HAS_ASYNC_FLIPS(i915);
++	mode_config->async_page_flip = HAS_ASYNC_FLIPS(i915) && !i915->params.disable_async_page_flip;
+ 
+ 	/*
+ 	 * Maximum framebuffer dimensions, chosen to match
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 29b56d53a340..d15a123cf051 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -78,6 +78,12 @@ static void quirk_fw_sync_len(struct intel_dp *intel_dp)
+ 	drm_info(display->drm, "Applying Fast Wake sync pulse count quirk\n");
+ }
+ 
++static void quirk_async_page_flips_force_disable(struct intel_display *display)
++{
++	display->drm->mode_config.async_page_flip = false;
++	drm_info(display->drm, "Applying async flip disable quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -164,6 +170,20 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+ 		},
+ 		.hook = quirk_no_pps_backlight_power_hook,
+ 	},
++	{
++		.dmi_id_list = &(const struct dmi_system_id[]) {
++			{
++				.callback = NULL,
++				.ident = "ASUS TUF DASH F15",
++				.matches = {
++					DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
++					DMI_MATCH(DMI_PRODUCT_NAME, "ASUS TUF Dash F15 FX516PC"),
++				},
++			},
++			{ }
++		},
++		.hook = quirk_async_page_flips_force_disable,
++	},
+ };
+ 
+ static struct intel_quirk intel_quirks[] = {
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index 37746dd619fd..bfe92c94ca7c 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -129,6 +129,10 @@ i915_param_named_unsafe(lmem_size, uint, 0400,
+ 			"Set the lmem size(in MiB) for each region. (default: 0, all memory)");
+ i915_param_named_unsafe(lmem_bar_size, uint, 0400,
+ 			"Set the lmem bar size(in MiB).");
++ 
++i915_param_named_unsafe(disable_async_page_flip, bool, 0400,
++			"Disable async page flipping"
++			"(0=disabled [default], 1=enabled)");
+ 
+ #if IS_ENABLED(CONFIG_DRM_I915_REPLAY_GPU_HANGS_API)
+ i915_param_named(enable_debug_only_api, bool, 0400,
+diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
+index 0fbcb5b6d7bf..8e9aa9131569 100644
+--- a/drivers/gpu/drm/i915/i915_params.h
++++ b/drivers/gpu/drm/i915/i915_params.h
+@@ -64,6 +64,7 @@ struct drm_printer;
+ 	param(bool, enable_hangcheck, true, 0600) \
+ 	param(bool, error_capture, true, IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR) ? 0600 : 0) \
+ 	param(bool, enable_gvt, false, IS_ENABLED(CONFIG_DRM_I915_GVT) ? 0400 : 0) \
++	param(bool, disable_async_page_flip, false, 0400) \
+ 	param(bool, enable_debug_only_api, false, IS_ENABLED(CONFIG_DRM_I915_REPLAY_GPU_HANGS_API) ? 0400 : 0)
+ 
+ #define MEMBER(T, member, ...) T member;
+diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
+index 687f3a9039bb..840ea9cf7dbc 100644
+--- a/drivers/gpu/drm/xe/xe_device_types.h
++++ b/drivers/gpu/drm/xe/xe_device_types.h
+@@ -542,6 +542,9 @@ struct xe_device {
+ 		unsigned int czclk_freq;
+ 		unsigned int fsb_freq, mem_freq, is_ddr3;
+ 	};
++	struct {
++		bool disable_async_page_flip;
++	} params;
+ 
+ 	void *pxp;
+ #endif
+-- 
+2.47.1
+
