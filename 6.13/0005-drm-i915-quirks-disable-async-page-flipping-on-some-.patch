@@ -1,31 +1,24 @@
-From b116c5b4a502c757813b4e46a9f52cd08b91a47d Mon Sep 17 00:00:00 2001
+From 1c1a4d7f78a1c367870b3cc90bb6f63b58627605 Mon Sep 17 00:00:00 2001
 From: Jan200101 <sentrycraft123@gmail.com>
-Date: Sat, 21 Dec 2024 15:28:35 +0100
-Subject: [PATCH] drm/i915/quirks: disable async page flipping on some multi
- GPU devices
+Date: Tue, 1 Apr 2025 18:43:40 +0200
+Subject: [PATCH 1/3] i915 async page flipping workarounds
+
+Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
+-- 
+2.49.0
+
+
+From 5b32b9c48a1563a229a233a94fc3a9dfaf983289 Mon Sep 17 00:00:00 2001
+From: Jan200101 <sentrycraft123@gmail.com>
+Date: Tue, 1 Apr 2025 18:42:06 +0200
+Subject: [PATCH 2/3] drm/i915/quirks: disable async page flipping on some
+ multi GPU devices
 
 Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
 ---
- .../drm/i915/display/intel_display_driver.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_quirks.c   | 20 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_params.c            |  4 ++++
- drivers/gpu/drm/i915/i915_params.h            |  1 +
- drivers/gpu/drm/xe/xe_device_types.h          |  3 +++
- 5 files changed, 29 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_quirks.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 56b78cf6b854..67b8340fda19 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -128,7 +128,7 @@ static void intel_mode_config_init(struct drm_i915_private *i915)
- 	mode_config->funcs = &intel_mode_funcs;
- 	mode_config->helper_private = &intel_mode_config_funcs;
- 
--	mode_config->async_page_flip = HAS_ASYNC_FLIPS(i915);
-+	mode_config->async_page_flip = HAS_ASYNC_FLIPS(i915) && !i915->params.disable_async_page_flip;
- 
- 	/*
- 	 * Maximum framebuffer dimensions, chosen to match
 diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
 index 28f497ae785b..2151723610c9 100644
 --- a/drivers/gpu/drm/i915/display/intel_quirks.c
@@ -64,6 +57,36 @@ index 28f497ae785b..2151723610c9 100644
  };
  
  static struct intel_quirk intel_quirks[] = {
+-- 
+2.49.0
+
+
+From 05079908e3379d0c5c817a37e8e4a99b880db1df Mon Sep 17 00:00:00 2001
+From: Jan200101 <sentrycraft123@gmail.com>
+Date: Tue, 1 Apr 2025 18:42:31 +0200
+Subject: [PATCH 3/3] drm/i915: add option to disable async page flips
+
+Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_driver.c | 2 +-
+ drivers/gpu/drm/i915/i915_params.c                  | 4 ++++
+ drivers/gpu/drm/i915/i915_params.h                  | 1 +
+ drivers/gpu/drm/xe/xe_device_types.h                | 3 +++
+ 4 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+index 56b78cf6b854..67b8340fda19 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -128,7 +128,7 @@ static void intel_mode_config_init(struct drm_i915_private *i915)
+ 	mode_config->funcs = &intel_mode_funcs;
+ 	mode_config->helper_private = &intel_mode_config_funcs;
+ 
+-	mode_config->async_page_flip = HAS_ASYNC_FLIPS(i915);
++	mode_config->async_page_flip = HAS_ASYNC_FLIPS(i915) && !i915->params.disable_async_page_flip;
+ 
+ 	/*
+ 	 * Maximum framebuffer dimensions, chosen to match
 diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
 index 37746dd619fd..bfe92c94ca7c 100644
 --- a/drivers/gpu/drm/i915/i915_params.c
@@ -92,10 +115,10 @@ index 0fbcb5b6d7bf..8e9aa9131569 100644
  
  #define MEMBER(T, member, ...) T member;
 diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
-index b9ea455d6f59..64e4efd2c1a7 100644
+index 782eb224a46e..54fcc3f133eb 100644
 --- a/drivers/gpu/drm/xe/xe_device_types.h
 +++ b/drivers/gpu/drm/xe/xe_device_types.h
-@@ -568,6 +568,9 @@ struct xe_device {
+@@ -574,6 +574,9 @@ struct xe_device {
  		unsigned int czclk_freq;
  		unsigned int fsb_freq, mem_freq, is_ddr3;
  	};
@@ -106,5 +129,5 @@ index b9ea455d6f59..64e4efd2c1a7 100644
  	void *pxp;
  #endif
 -- 
-2.48.1
+2.49.0
 
