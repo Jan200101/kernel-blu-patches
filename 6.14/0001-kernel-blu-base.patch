@@ -1,0 +1,1448 @@
+From 8fc6f85221882a67ade8e55ed2f61d9093bc9477 Mon Sep 17 00:00:00 2001
+From: Jan200101 <sentrycraft123@gmail.com>
+Date: Fri, 18 Apr 2025 07:31:22 +0200
+Subject: [PATCH] kernel-blu base
+
+include all changes necessary to build a blu-specific kernel without the additional patches
+
+Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
+---
+ .gitignore                                    |   1 +
+ redhat/Makefile                               |   5 +
+ redhat/Makefile.variables                     |   9 +-
+ redhat/blu-srpm.sh                            |   3 +
+ redhat/blu-stable-release.sh                  |  25 +
+ redhat/blu_files/def_variants.yaml.blu        | 478 ++++++++++++++++++
+ redhat/blu_files/x509.genkey.blu              |  16 +
+ .../blu/generic/CONFIG_ACPI_EC_DEBUGFS        |   1 +
+ redhat/configs/blu/generic/CONFIG_APPLE_BCE   |   1 +
+ .../configs/blu/generic/CONFIG_ASUS_ARMOURY   |   1 +
+ redhat/configs/blu/generic/CONFIG_BMI323_I2C  |   1 +
+ redhat/configs/blu/generic/CONFIG_BMI323_SPI  |   1 +
+ .../configs/blu/generic/CONFIG_DRM_APPLETBDRM |   1 +
+ redhat/configs/blu/generic/CONFIG_FB_EFI      |   1 +
+ redhat/configs/blu/generic/CONFIG_FB_SIMPLE   |   1 +
+ redhat/configs/blu/generic/CONFIG_FB_VESA     |   1 +
+ .../configs/blu/generic/CONFIG_HID_APPLETB_BL |   1 +
+ .../blu/generic/CONFIG_HID_APPLETB_KBD        |   1 +
+ .../generic/CONFIG_HID_APPLE_MAGIC_BACKLIGHT  |   1 +
+ .../configs/blu/generic/CONFIG_HID_ASUS_ALLY  |   1 +
+ redhat/configs/blu/generic/CONFIG_I2C_NCT6775 |   1 +
+ redhat/configs/blu/generic/CONFIG_IPC_CLASSES |   1 +
+ .../CONFIG_SECURITY_LOCKDOWN_LSM_EARLY        |   1 +
+ .../blu/generic/CONFIG_SND_SOC_AW87XXX        |   1 +
+ .../configs/blu/generic/CONFIG_TCP_CONG_BBR2  |   1 +
+ .../configs/blu/generic/CONFIG_VIDEO_DW9719   |   1 +
+ .../configs/blu/generic/x86/CONFIG_ACPI_CALL  |   1 +
+ .../generic/x86/CONFIG_IIO_HRTIMER_TRIGGER    |   1 +
+ .../blu/generic/x86/CONFIG_IIO_SYSFS_TRIGGER  |   1 +
+ .../blu/generic/x86/CONFIG_PHY_SAMSUNG_USB2   |   1 +
+ .../generic/x86/CONFIG_SND_AMD_ASOC_REMBRANDT |   1 +
+ .../generic/x86/CONFIG_SND_AMD_ASOC_RENOIR    |   1 +
+ .../generic/x86/CONFIG_SND_SOC_AMD_ACP_COMMON |   1 +
+ .../generic/x86/CONFIG_SND_SOC_AMD_ACP_PCI    |   1 +
+ .../x86/CONFIG_SND_SOC_AMD_LEGACY_MACH        |   1 +
+ .../x86/CONFIG_SND_SOC_AMD_MACH_COMMON        |   1 +
+ .../generic/x86/CONFIG_SND_SOC_AMD_SOF_MACH   |   1 +
+ .../blu/generic/x86/CONFIG_SND_SOC_SOF        |   1 +
+ .../generic/x86/CONFIG_SND_SOC_SOF_AMD_ACP63  |   1 +
+ .../generic/x86/CONFIG_SND_SOC_SOF_AMD_COMMON |   1 +
+ .../generic/x86/CONFIG_SND_SOC_SOF_INTEL_IPC4 |   1 +
+ .../blu/generic/x86/CONFIG_SND_SOC_SOF_IPC3   |   1 +
+ .../x86/CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE   |   1 +
+ .../blu/generic/x86/CONFIG_SND_SOC_TOPOLOGY   |   1 +
+ redhat/configs/blu/generic/x86/CONFIG_SND_SPI |   1 +
+ .../blu/generic/x86/CONFIG_USB_AMD5536UDC     |   1 +
+ .../blu/generic/x86/CONFIG_USB_BDC_UDC        |   1 +
+ .../blu/generic/x86/CONFIG_USB_CHIPIDEA       |   1 +
+ .../generic/x86/CONFIG_USB_CHIPIDEA_GENERIC   |   1 +
+ .../blu/generic/x86/CONFIG_USB_CHIPIDEA_HOST  |   1 +
+ .../blu/generic/x86/CONFIG_USB_CHIPIDEA_MSM   |   1 +
+ .../blu/generic/x86/CONFIG_USB_CHIPIDEA_PCI   |   1 +
+ .../blu/generic/x86/CONFIG_USB_CHIPIDEA_UDC   |   1 +
+ .../blu/generic/x86/CONFIG_USB_CONFIGFS       |   1 +
+ .../blu/generic/x86/CONFIG_USB_DUMMY_HCD      |   1 +
+ .../configs/blu/generic/x86/CONFIG_USB_DWC2   |   1 +
+ .../blu/generic/x86/CONFIG_USB_DWC2_DEBUG     |   1 +
+ .../blu/generic/x86/CONFIG_USB_DWC2_DUAL_ROLE |   1 +
+ .../blu/generic/x86/CONFIG_USB_DWC2_PCI       |   1 +
+ .../x86/CONFIG_USB_DWC2_TRACK_MISSED_SOFS     |   1 +
+ .../configs/blu/generic/x86/CONFIG_USB_DWC3   |   1 +
+ .../blu/generic/x86/CONFIG_USB_DWC3_DUAL_ROLE |   1 +
+ .../blu/generic/x86/CONFIG_USB_DWC3_HAPS      |   1 +
+ .../blu/generic/x86/CONFIG_USB_DWC3_HOST      |   1 +
+ .../blu/generic/x86/CONFIG_USB_DWC3_PCI       |   1 +
+ .../blu/generic/x86/CONFIG_USB_DWC3_ULPI      |   1 +
+ .../configs/blu/generic/x86/CONFIG_USB_EG20T  |   1 +
+ .../configs/blu/generic/x86/CONFIG_USB_GADGET |   1 +
+ .../blu/generic/x86/CONFIG_USB_GADGET_DEBUG   |   1 +
+ .../generic/x86/CONFIG_USB_GADGET_DEBUG_FILES |   1 +
+ .../generic/x86/CONFIG_USB_GADGET_DEBUG_FS    |   1 +
+ .../x86/CONFIG_USB_GADGET_STORAGE_NUM_BUFFERS |   1 +
+ .../generic/x86/CONFIG_USB_GADGET_VBUS_DRAW   |   1 +
+ .../configs/blu/generic/x86/CONFIG_USB_GOKU   |   1 +
+ .../blu/generic/x86/CONFIG_USB_ISP1760        |   1 +
+ .../generic/x86/CONFIG_USB_ISP1760_DUAL_ROLE  |   1 +
+ .../blu/generic/x86/CONFIG_USB_ISP1760_HCD    |   1 +
+ .../blu/generic/x86/CONFIG_USB_ISP1761_UDC    |   1 +
+ .../configs/blu/generic/x86/CONFIG_USB_M66592 |   1 +
+ .../configs/blu/generic/x86/CONFIG_USB_MV_U3D |   1 +
+ .../configs/blu/generic/x86/CONFIG_USB_MV_UDC |   1 +
+ .../blu/generic/x86/CONFIG_USB_NET2272        |   1 +
+ .../blu/generic/x86/CONFIG_USB_NET2280        |   1 +
+ .../configs/blu/generic/x86/CONFIG_USB_PXA27X |   1 +
+ .../blu/generic/x86/CONFIG_USB_R8A66597       |   1 +
+ .../blu/generic/x86/CONFIG_U_SERIAL_CONSOLE   |   1 +
+ redhat/configs/flavors                        |   3 +-
+ redhat/configs/priority.blu                   |  24 +
+ redhat/kernel.spec.template                   |  17 +-
+ redhat/scripts/create-tarball.sh              |   2 +-
+ redhat/scripts/genspec/genspec.sh             |   1 +
+ 91 files changed, 651 insertions(+), 12 deletions(-)
+ create mode 100755 redhat/blu-srpm.sh
+ create mode 100755 redhat/blu-stable-release.sh
+ create mode 100644 redhat/blu_files/def_variants.yaml.blu
+ create mode 100644 redhat/blu_files/x509.genkey.blu
+ create mode 100644 redhat/configs/blu/generic/CONFIG_ACPI_EC_DEBUGFS
+ create mode 100644 redhat/configs/blu/generic/CONFIG_APPLE_BCE
+ create mode 100644 redhat/configs/blu/generic/CONFIG_ASUS_ARMOURY
+ create mode 100644 redhat/configs/blu/generic/CONFIG_BMI323_I2C
+ create mode 100644 redhat/configs/blu/generic/CONFIG_BMI323_SPI
+ create mode 100644 redhat/configs/blu/generic/CONFIG_DRM_APPLETBDRM
+ create mode 100644 redhat/configs/blu/generic/CONFIG_FB_EFI
+ create mode 100644 redhat/configs/blu/generic/CONFIG_FB_SIMPLE
+ create mode 100644 redhat/configs/blu/generic/CONFIG_FB_VESA
+ create mode 100644 redhat/configs/blu/generic/CONFIG_HID_APPLETB_BL
+ create mode 100644 redhat/configs/blu/generic/CONFIG_HID_APPLETB_KBD
+ create mode 100644 redhat/configs/blu/generic/CONFIG_HID_APPLE_MAGIC_BACKLIGHT
+ create mode 100644 redhat/configs/blu/generic/CONFIG_HID_ASUS_ALLY
+ create mode 100644 redhat/configs/blu/generic/CONFIG_I2C_NCT6775
+ create mode 100644 redhat/configs/blu/generic/CONFIG_IPC_CLASSES
+ create mode 100644 redhat/configs/blu/generic/CONFIG_SECURITY_LOCKDOWN_LSM_EARLY
+ create mode 100644 redhat/configs/blu/generic/CONFIG_SND_SOC_AW87XXX
+ create mode 100644 redhat/configs/blu/generic/CONFIG_TCP_CONG_BBR2
+ create mode 100644 redhat/configs/blu/generic/CONFIG_VIDEO_DW9719
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_ACPI_CALL
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_IIO_HRTIMER_TRIGGER
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_IIO_SYSFS_TRIGGER
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_PHY_SAMSUNG_USB2
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_AMD_ASOC_REMBRANDT
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_AMD_ASOC_RENOIR
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_ACP_COMMON
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_ACP_PCI
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_LEGACY_MACH
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_MACH_COMMON
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_SOF_MACH
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_AMD_ACP63
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_AMD_COMMON
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_INTEL_IPC4
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_IPC3
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SOC_TOPOLOGY
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_SND_SPI
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_AMD5536UDC
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_BDC_UDC
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_GENERIC
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_HOST
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_MSM
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_PCI
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_UDC
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_CONFIGFS
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DUMMY_HCD
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC2
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_DEBUG
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_DUAL_ROLE
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_PCI
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_TRACK_MISSED_SOFS
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC3
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_DUAL_ROLE
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_HAPS
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_HOST
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_PCI
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_ULPI
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_EG20T
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_GADGET
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG_FILES
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG_FS
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_STORAGE_NUM_BUFFERS
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_VBUS_DRAW
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_GOKU
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760_DUAL_ROLE
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760_HCD
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_ISP1761_UDC
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_M66592
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_MV_U3D
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_MV_UDC
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_NET2272
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_NET2280
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_PXA27X
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_USB_R8A66597
+ create mode 100644 redhat/configs/blu/generic/x86/CONFIG_U_SERIAL_CONSOLE
+ create mode 100644 redhat/configs/priority.blu
+
+diff --git a/.gitignore b/.gitignore
+index 17ccd7c721ca..50f7df970cf0 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -178,6 +178,7 @@ x509.genkey
+ configs/*.config
+ redhat/rhdocs/*
+ redhat/rhdocs
++redhat/*.log
+ localversion
+ .get_maintainer.conf
+ 
+diff --git a/redhat/Makefile b/redhat/Makefile
+index 8abfcbdc9a4b..3360bed4dce3 100644
+--- a/redhat/Makefile
++++ b/redhat/Makefile
+@@ -17,6 +17,7 @@ SPECINCLUDE_FEDORA_FILES=$(INCLUDE_FEDORA_FILES)
+ SPECINCLUDE_RHEL_FILES=$(INCLUDE_RHEL_FILES)
+ SPECINCLUDE_RT_FILES=$(INCLUDE_RT_FILES)
+ SPECINCLUDE_AUTOMOTIVE_FILES=$(INCLUDE_AUTOMOTIVE_FILES)
++SPECINCLUDE_BLU_FILES=$(INCLUDE_BLU_FILES)
+ 
+ ifneq (,$(findstring n,$(firstword -$(MAKEFLAGS))))
+   # Do not set RHTEST on the command line. Use the make command built-in options
+@@ -574,6 +575,10 @@ dist-rhel-configs: FLAVOR = rhel
+ dist-rhel-configs: dist-configs
+ rh-configs: dist-rhel-configs
+ 
++dist-blu-configs: FLAVOR = blu
++dist-blu-configs: dist-configs
++blu-configs: dist-blu-configs
++
+ dist-configs-check: dist-configs-prep
+ 	+cd $(REDHAT)/configs; ./process_configs.sh $(PROCESS_CONFIGS_CHECK_OPTS) "" ""
+ 
+diff --git a/redhat/Makefile.variables b/redhat/Makefile.variables
+index 2822bb6e4d8c..7a425095549d 100644
+--- a/redhat/Makefile.variables
++++ b/redhat/Makefile.variables
+@@ -67,10 +67,11 @@ HEAD ?= HEAD
+ # be included as part of the source RPM.  Downstream projects, such as
+ # centos-stream or RHEL, can disable file inclusion by setting these values
+ # to '0'.
+-INCLUDE_FEDORA_FILES:=1
+-INCLUDE_RHEL_FILES:=1
+-INCLUDE_RT_FILES:=1
+-INCLUDE_AUTOMOTIVE_FILES:=1
++INCLUDE_FEDORA_FILES:=0
++INCLUDE_RHEL_FILES:=0
++INCLUDE_RT_FILES:=0
++INCLUDE_AUTOMOTIVE_FILES:=0
++INCLUDE_BLU_FILES:=1
+ 
+ # This variable is the location of the KABI cross compilers
+ KABI_CROSS_COMPILE_PREFIX ?= /usr/bin/
+diff --git a/redhat/blu-srpm.sh b/redhat/blu-srpm.sh
+new file mode 100755
+index 000000000000..331c35f2845c
+--- /dev/null
++++ b/redhat/blu-srpm.sh
+@@ -0,0 +1,3 @@
++#!/bin/bash
++
++make IS_FEDORA=1 DIST=".fc40" BUILDID="" DISTLOCALVERSION=".blu" BUILD=201 dist-srpm
+diff --git a/redhat/blu-stable-release.sh b/redhat/blu-stable-release.sh
+new file mode 100755
+index 000000000000..9ec7e52442ce
+--- /dev/null
++++ b/redhat/blu-stable-release.sh
+@@ -0,0 +1,25 @@
++#!/bin/bash
++
++# shellcheck disable=all
++
++releasenum=$1
++
++# Releasenum is really just the last digit as we have series based on Fedora Release
++# by default we assume 0, but if you need to do a rebuild with a fix before a new release
++# you can call the script with a 1 or whatever digit you wish for the releasenum.
++if [ -z "$releasenum" ]; then
++	releasenum="1"
++fi
++
++for release in $( cat redhat/release_targets );  do 
++	case "$release" in
++	42) build=30$releasenum
++	    ;;
++	41) build=20$releasenum
++	    ;;
++	40) build=10$releasenum
++	    ;;
++	esac
++	make IS_FEDORA=1 DIST=".fc$release" BUILDID="" DISTLOCALVERSION=".blu" BUILD=$build dist-srpm
++	make IS_FEDORA=1 DIST=".fc$release" BUILDID="" DISTLOCALVERSION=".blu" BUILD=$build dist-headers-srpm
++done
+diff --git a/redhat/blu_files/def_variants.yaml.blu b/redhat/blu_files/def_variants.yaml.blu
+new file mode 100644
+index 000000000000..b26cab12c615
+--- /dev/null
++++ b/redhat/blu_files/def_variants.yaml.blu
+@@ -0,0 +1,478 @@
++packages:
++  - name: modules-core
++    depends-on: []
++  - name: modules
++    depends-on:
++    - modules-core
++  - name: modules-internal
++    depends-on:
++    - modules-core
++    - modules
++  - name: modules-extra
++    depends-on:
++    - modules-core
++    - modules
++  - name: modules-rt-kvm
++    if_variant_in: ["rt"]
++    depends-on:
++    - modules-core
++
++
++rules:
++  - .*kunit.*: modules-internal
++    exact_pkg: True
++  - .*test[^/]*.ko: modules-internal
++
++  - arch/x86/kvm/kvm(-amd|-intel|\.).*: modules-rt-kvm
++    if_variant_in: ["rt"]
++
++  - arch/.*: modules-core
++  - crypto/.*: modules-core
++
++  - drivers/accel/.*: modules-core
++  - drivers/accessibility/.*: modules-core
++  - drivers/acpi/video.*: modules
++  - drivers/acpi/.*: modules-core
++  - drivers/ata/.*: modules-core
++
++  - drivers/base/regmap/regmap-sdw.*: modules
++  - drivers/base/.*: modules-core
++  - drivers/block/floppy.*: modules-extra
++  - drivers/block/rnbd.*: modules
++  - drivers/block/.*: modules-core
++  - drivers/bus/.*: modules-core
++
++  - drivers/cdx/.*: modules-core
++  - drivers/char/mwave.*: modules
++  - drivers/char/.*: modules-core
++  - drivers/clk/.*: modules-core
++  - drivers/counter/.*: modules-core
++  - drivers/cpufreq/.*: modules-core
++  - drivers/crypto/caam/.*: modules
++  - drivers/crypto/cavium/.*: modules
++  - drivers/crypto/chelsio/.*: modules
++  - drivers/crypto/hisilicon/.*: modules
++  - drivers/crypto/marvell/.*: modules
++  - drivers/crypto/.*: modules-core
++  - drivers/cxl/.*: modules-core
++
++  - drivers/dax/.*: modules-core
++  - drivers/dca/.*: modules-core
++  - drivers/devfreq/.*: modules-core
++  - drivers/dma/.*: modules-core
++
++  - drivers/edac/.*: modules-core
++  - drivers/extcon/.*: modules-core
++
++  - drivers/firmware/iscsi_ibft.*: modules
++  - drivers/firmware/.*: modules-core
++  - drivers/fsi/.*: modules-core
++
++  - drivers/gnss/.*: modules-core
++  - drivers/gpio/gpio-dln2.*: modules-extra
++  - drivers/gpio/gpio-ljca.*: modules
++  - drivers/gpio/.*: modules-core
++  - drivers/gpu/drm/i915/kvmgt.*: modules-rt-kvm
++    if_variant_in: ["rt"]
++  - drivers/gpu/drm/display/drm_.*: modules-core
++  - drivers/gpu/drm/drm.*: modules-core
++  - drivers/gpu/drm/etnaviv/.*: modules-core
++  - drivers/gpu/drm/gud/.*: modules-core
++  - drivers/gpu/drm/hyperv/.*: modules-core
++  - drivers/gpu/drm/imagination/.*: modules-core
++  - drivers/gpu/drm/lima/.*: modules-core
++  - drivers/gpu/drm/mxsfb/.*: modules-core
++  - drivers/gpu/drm/panfrost/.*: modules-core
++  - drivers/gpu/drm/qxl/.*: modules-core
++  - drivers/gpu/drm/scheduler/.*: modules-core
++  - drivers/gpu/drm/solomon/.*: modules-core
++  - drivers/gpu/drm/tidss/.*: modules-core
++  - drivers/gpu/drm/tiny/.*: modules-core
++  - drivers/gpu/drm/ttm/.*: modules-core
++  - drivers/gpu/drm/udl/.*: modules-core
++  - drivers/gpu/drm/v3d/.*: modules-core
++  - drivers/gpu/drm/vgem/.*: modules-core
++  - drivers/gpu/drm/virtio/.*: modules-core
++  - drivers/gpu/drm/vkms/.*: modules-core
++  - drivers/gpu/drm/vmwgfx/.*: modules-core
++  - drivers/gpu/drm/xlnx/.*: modules-core
++  - drivers/gpu/host1x/.*: modules-core
++
++  - drivers/hid/hid-asus.*: modules
++  - drivers/hid/hid-nintendo.*: modules
++  - drivers/hid/hid-picolcd.*: modules
++  - drivers/hid/hid-playstation.*: modules
++  - drivers/hid/surface-hid.*: modules
++  - drivers/hid/hid-prodikeys.*: modules
++  - drivers/hid/.*: modules-core
++  - drivers/hte/.*: modules-core
++  - drivers/hv/.*: modules-core
++  - drivers/hwmon/asus_wmi_sensors.*: modules
++  - drivers/hwmon/dell-smm-hwmon.*: modules
++  - drivers/hwmon/hp-wmi-sensors.*: modules
++  - drivers/hwmon/intel-m10-bmc-hwmon.*: modules
++  - drivers/hwmon/nct6775.*: modules
++  - drivers/hwmon/.*: modules-core
++  - drivers/hwspinlock/.*: modules-core
++  - drivers/hwtracing/.*: modules-core
++
++  - drivers/i2c/busses/i2c-dln2.*: modules-extra
++  - drivers/i2c/busses/i2c-ljca.*: modules
++  - drivers/i2c/.*: modules-core
++  - drivers/i3c/.*: modules-core
++  - drivers/iio/adc/dln2-adc.*: modules-extra
++  - drivers/iio/accel/.*: modules
++  - drivers/iio/common/cros_ec_sensors/.*: modules
++  - drivers/iio/light/.*: modules
++  - drivers/iio/pressure/.*: modules
++  - drivers/iio/proximity/.*: modules
++  - drivers/iio/.*: modules-core
++  - drivers/input/gameport/.*: modules
++  - drivers/input/joystick/.*: modules-extra
++  - drivers/input/misc/pcspkr.*: modules-extra
++  - drivers/input/tablet/.*: modules
++  - drivers/input/touchscreen/.*: modules
++  - drivers/input/.*: modules-core
++  - drivers/interconnect/.*: modules-core
++  - drivers/iommu/.*: modules-core
++  - drivers/irqchip/.*: modules-core
++
++  - drivers/mailbox/.*: modules-core
++  - drivers/md/.*: modules-core
++  - drivers/memory/dfl-emif.*: modules
++  - drivers/memory/.*: modules-core
++  - drivers/message/fusion/mptctl.*: modules-extra
++  - drivers/message/fusion/mptfc.*: modules-extra
++  - drivers/message/fusion/.*: modules
++  - drivers/message/.*: modules-core
++  - drivers/mfd/dln2.*: modules-extra
++  - drivers/misc/.*: modules-core
++  - drivers/mux/.*: modules-core
++
++  - drivers/net/amt.ko: modules-core
++  - drivers/net/bareudp.ko: modules-core
++  - drivers/net/bonding/.*: modules-core
++  - drivers/net/can/slcan/slcan.*: modules-extra
++  - drivers/net/can/usb/ems_usb.*: modules-extra
++  - drivers/net/can/vcan.*: modules-extra
++  - drivers/net/dummy.ko: modules-core
++  - drivers/net/eql.ko: modules-core
++
++  - drivers/net/ethernet/8390/.*: modules-core
++  - drivers/net/ethernet/adi/.*: modules-core
++  - drivers/net/ethernet/agere/.*: modules-core
++  - drivers/net/ethernet/altera/.*: modules-core
++  - drivers/net/ethernet/amazon/.*: modules-core
++  - drivers/net/ethernet/amd/.*: modules-core
++  - drivers/net/ethernet/apm/.*: modules-core
++  - drivers/net/ethernet/asix/.*: modules-core
++  - drivers/net/ethernet/brocade/.*: modules-core
++  - drivers/net/ethernet/cavium/.*: modules-core
++  - drivers/net/ethernet/dnet.ko: modules-core
++  - drivers/net/ethernet/engleder/.*: modules-core
++  - drivers/net/ethernet/ethoc.ko: modules-core
++  - drivers/net/ethernet/fealnx.ko: modules-core
++  - drivers/net/ethernet/freescale/.*: modules-core
++  - drivers/net/ethernet/fungible/.*: modules-core
++  - drivers/net/ethernet/google/.*: modules-core
++  - drivers/net/ethernet/hisilicon/.*: modules-core
++  - drivers/net/ethernet/ibm/.*: modules-core
++  - drivers/net/ethernet/intel/.*: modules-core
++  - drivers/net/ethernet/jme.ko: modules-core
++  - drivers/net/ethernet/litex/.*: modules-core
++  - drivers/net/ethernet/mellanox/.*: modules-core
++  - drivers/net/ethernet/microsoft/.*: modules-core
++  - drivers/net/ethernet/natsemi/.*: modules-core
++  - drivers/net/ethernet/netronome/.*: modules-core
++  - drivers/net/ethernet/pensando/.*: modules-core
++  - drivers/net/ethernet/rocker/rocker.*: modules-internal
++  - drivers/net/ethernet/qualcomm/.*: modules-core
++  - drivers/net/ethernet/realtek/.*: modules-core
++  - drivers/net/ethernet/renesas/.*: modules-core
++  - drivers/net/ethernet/socionext/.*: modules-core
++  - drivers/net/ethernet/vertexcom/.*: modules-core
++  - drivers/net/ethernet/wangxun/.*: modules-core
++  - drivers/net/ethernet/xilinx/.*: modules-core
++
++  - drivers/net/fjes/.*: modules-core
++  - drivers/net/geneve.ko: modules-core
++  - drivers/net/gtp.ko: modules-core
++  - drivers/net/hamradio/.*: modules-extra
++  - drivers/net/hyperv/.*: modules-core
++  - drivers/net/ifb.ko: modules-core
++  - drivers/net/ipa/.*: modules-core
++  - drivers/net/ipvlan/.*: modules-core
++  - drivers/net/macsec.ko: modules-core
++  - drivers/net/macvlan.ko: modules-core
++  - drivers/net/macvtap.ko: modules-core
++  - drivers/net/mctp/.*: modules-core
++  - drivers/net/mdio.*: modules-core
++  - drivers/net/mhi_net.ko: modules-core
++  - drivers/net/mii.ko: modules-core
++  - drivers/net/net_failover.ko: modules-core
++  - drivers/net/netdevsim/netdevsim.*: modules-internal
++  - drivers/net/netconsole.ko: modules-core
++  - drivers/net/nlmon.ko: modules-core
++  - drivers/net/pcs/.*: modules-core
++  - drivers/net/phy/.*: modules-core
++  - drivers/net/rionet.ko: modules-core
++  - drivers/net/slip/slip.*: modules-extra
++  - drivers/net/sungem_phy.ko: modules-core
++  - drivers/net/tap.ko: modules-core
++  - drivers/net/team/.*: modules-core
++  - drivers/net/thunderbolt/.*: modules-core
++  - drivers/net/tun.ko: modules-core
++  - drivers/net/veth.ko: modules-core
++  - drivers/net/virtio_net.ko: modules-core
++  - drivers/net/vmxnet3/.*: modules-core
++  - drivers/net/vrf.ko: modules-core
++  - drivers/net/vsockmon.ko: modules-core
++  - drivers/net/vxlan/.*: modules-core
++  - drivers/net/wireguard/.*: modules-core
++  - drivers/net/wireless/virtual/mac80211_hwsim.*: modules-internal
++  - drivers/net/wwan/wwan_hwsim.*: modules-internal
++  - drivers/net/wwan/.*: modules-core
++  - drivers/net/xen.*: modules-core
++
++  - drivers/nvdimm/.*: modules-core
++  - drivers/nvme/host/nvme-rdma.*: modules
++  - drivers/nvme/target/nvmet-rdma.*: modules
++  - drivers/nvme/.*: modules-core
++  - drivers/nvmem/nvmem_u-boot-env.*: modules
++  - drivers/nvmem/.*: modules-core
++
++  - drivers/parport/parport_serial.*: modules
++  - drivers/parport/.*: modules-core
++  - drivers/pci/pcie/aer_inject.*: modules-extra
++  - drivers/pci/.*: modules-core
++  - drivers/perf/.*: modules-core
++  - drivers/phy/.*: modules-core
++  - drivers/pinctrl/.*: modules-core
++  - drivers/pmdomain/.*: modules-core
++  - drivers/powercap/intel_rapl_tpmi.*: modules
++  - drivers/powercap/.*: modules-core
++  - drivers/pps/.*: modules-core
++  - drivers/ptp/ptp_kvm.*: modules-rt-kvm
++    if_variant_in: ["rt"]
++  - drivers/ptp/ptp_mock.*: modules-internal
++  - drivers/ptp/ptp_dfl_tod.*: modules
++  - drivers/ptp/.*: modules-core
++  - drivers/pwm/.*: modules-core
++
++  - drivers/rapidio/.*: modules-core
++  - drivers/regulator/arizona-micsupp.*: modules
++  - drivers/regulator/.*: modules-core
++  - drivers/remoteproc/.*: modules-core
++  - drivers/reset/.*: modules-core
++  - drivers/rpmsg/.*: modules-core
++  - drivers/rtc/.*: modules-core
++
++  - drivers/s390/.*: modules-core
++
++  - drivers/scsi/3w.*: modules-core
++  - drivers/scsi/BusLogic.ko: modules-core
++  - drivers/scsi/a100u2w.ko: modules-core
++  - drivers/scsi/advansys.ko: modules-core
++  - drivers/scsi/am53c974.ko: modules-core
++  - drivers/scsi/arcmsr.*: modules-core
++  - drivers/scsi/atp870u.ko: modules-core
++  - drivers/scsi/ch.ko: modules-core
++  - drivers/scsi/cxlflash/.*: modules-core
++  - drivers/scsi/dc395x.ko: modules-core
++  - drivers/scsi/device_handler/.*: modules-core
++  - drivers/scsi/dmx3191d.ko: modules-core
++  - drivers/scsi/elx/.*: modules-core
++  - drivers/scsi/esp_scsi.ko: modules-core
++  - drivers/scsi/fdomain.*: modules-core
++  - drivers/scsi/hpsa.ko: modules-core
++  - drivers/scsi/hptiop.ko: modules-core
++  - drivers/scsi/hv_storvsc.ko: modules-core
++  - drivers/scsi/ibmvscsi.*: modules-core
++  - drivers/scsi/initio.ko: modules-core
++  - drivers/scsi/ipr.ko: modules-core
++  - drivers/scsi/ips.ko: modules-core
++  - drivers/scsi/iscsi_tcp.ko: modules-core
++  - drivers/scsi/libfc/.*: modules-core
++  - drivers/scsi/libiscsi.*: modules-core
++  - drivers/scsi/mpi3mr/.*: modules-core
++  - drivers/scsi/mvumi.ko: modules-core
++  - drivers/scsi/myrb.ko: modules-core
++  - drivers/scsi/myrs.ko: modules-core
++  - drivers/scsi/raid_class.ko: modules-core
++  - drivers/scsi/scsi_debug.ko: modules-core
++  - drivers/scsi/scsi_transport_.*: modules-core
++  - drivers/scsi/ses.ko: modules-core
++  - drivers/scsi/smartpqi/.*: modules-core
++  - drivers/scsi/snic/.*: modules-core
++  - drivers/scsi/st.ko: modules-core
++  - drivers/scsi/stex.ko: modules-core
++  - drivers/scsi/virtio_scsi.ko: modules-core
++  - drivers/scsi/vmw_pvscsi.ko: modules-core
++  - drivers/scsi/wd719x.ko: modules-core
++  - drivers/scsi/xen-scsifront.ko: modules-core
++
++  - drivers/slimbus/.*: modules-core
++  - drivers/soc/.*: modules-core
++  - drivers/spi/spi-altera-dfl.*: modules
++  - drivers/spi/spi-dln2.*: modules-extra
++  - drivers/spi/spi-ljca.*: modules
++  - drivers/spi/.*: modules-core
++  - drivers/spmi/.*: modules-core
++
++  - drivers/target/iscsi/cxgbit/cxgbit.*: modules
++  - drivers/target/sbp/sbp_target.*: modules
++  - drivers/target/target_core_user.*: modules
++  - drivers/target/.*: modules-core
++  - drivers/tee/.*: modules-core
++  - drivers/thermal/intel/int340x_thermal/int3406_thermal.*: modules
++  - drivers/thermal/.*: modules-core
++  - drivers/thunderbolt/.*: modules-core
++
++  - drivers/ufs/.*: modules-core
++  - drivers/usb/atm/.*: modules
++  - drivers/usb/gadget/function/usb_f_midi2.*: modules
++  - drivers/usb/image/.*: modules
++  - drivers/usb/misc/trancevibrator.*: modules-extra
++  - drivers/usb/misc/.*: modules
++  - drivers/usb/serial/.*: modules
++  - drivers/usb/typec/mux/nb7vpq904m.*: modules
++  - drivers/usb/usbip/.*: modules-extra
++  - drivers/usb/.*: modules-core
++
++  - drivers/vdpa/mlx5/mlx5_vdpa.*: modules
++  - drivers/vdpa/pds/pds_vdpa.*: modules
++  - drivers/vdpa/.*: modules-core
++  - drivers/vfio/pci/mlx5/mlx5-vfio-pci.*: modules
++  - drivers/vfio/pci/pds/pds-vfio-pc.*: modules
++  - drivers/vfio/.*: modules-core
++  - drivers/vhost/.*: modules-core
++  - drivers/video/backlight/apple_bl.*: modules
++  - drivers/video/.*: modules-core
++  - drivers/virt/.*: modules-core
++  - drivers/virtio/.*: modules-core
++
++  - drivers/watchdog/iTCO_wdt.*: modules
++  - drivers/watchdog/.*: modules-core
++
++  - drivers/xen/.*: modules-core
++
++  - drivers/w1/masters/ds2482.*: modules-extra
++  - drivers/w1/masters/ds2490.*: modules-extra
++  - drivers/w1/slaves/w1_ds2408.*: modules-extra
++  - drivers/w1/slaves/w1_ds2423.*: modules-extra
++  - drivers/w1/slaves/w1_ds2431.*: modules-extra
++  - drivers/w1/slaves/w1_ds2433.*: modules-extra
++  - drivers/w1/slaves/w1_ds2780.*: modules-extra
++  - drivers/w1/slaves/w1_ds2781.*: modules-extra
++  - drivers/w1/slaves/w1_ds28e04.*: modules-extra
++  - drivers/w1/slaves/w1_smem.*: modules-extra
++  - drivers/w1/slaves/w1_therm.*: modules-extra
++
++  - fs/9p/.*: modules-core
++  - fs/afs/.*: modules-core
++  - fs/affs/affs.*: modules-extra
++  - fs/bcachefs/.*: modules-core
++  - fs/befs/befs.*: modules-extra
++  - fs/binfmt_misc.ko: modules-core
++  - fs/cachefiles/.*: modules-core
++  - fs/ceph/.*: modules-core
++  - fs/coda/coda.*: modules-extra
++  - fs/dlm/.*: modules-extra
++  - fs/erofs/.*: modules-core
++  - fs/exfat/.*: modules-core
++  - fs/f2fs/.*: modules-core
++  - fs/fat/.*: modules-core
++  - fs/fuse/cuse.*: modules-extra
++  - fs/fuse/.*: modules-core
++  - fs/gfs2/.*: modules-extra
++  - fs/isofs/.*: modules-core
++  - fs/lockd/.*: modules-core
++  - fs/netfs/.*: modules-core
++  - fs/nfs.*: modules-core
++  - fs/nilfs2/nilfs2.*: modules-extra
++  - fs/nls/.*: modules-core
++  - fs/ntfs3/.*: modules-core
++  - fs/ocfs2/.*: modules-extra
++  - fs/orangefs/.*: modules-core
++  - fs/overlayfs/.*: modules-core
++  - fs/pstore/.*: modules-core
++  - fs/smb/.*: modules-core
++  - fs/squashfs/.*: modules-core
++  - fs/sysv/.*: modules-extra
++  - fs/ubifs/.*: modules-extra
++  - fs/udf/.*: modules-core
++  - fs/ufs/.*: modules-extra
++  - fs/vboxsf/.*: modules-core
++  - fs/xfs/.*: modules-core
++  - fs/zonefs/.*: modules-core
++
++  - kernel/locking/locktorture.*: modules-internal
++  - kernel/rcu/rcuscale.*: modules-internal
++  - kernel/rcu/rcutorture.*: modules-internal
++  - kernel/rcu/refscale.*: modules-internal
++  - kernel/scftorture.*: modules-internal
++  - kernel/torture.*: modules-internal
++  - kernel/.*: modules-core
++
++  - lib/.*: modules-core
++
++  - net/802/.*: modules-core
++  - net/8021q/.*: modules-core
++  - net/9p/9pnet_rdma.ko: modules
++  - net/9p/.*: modules-core
++  - net/appletalk/appletalk.*: modules-extra
++  - net/atm/br2684.*: modules-extra
++  - net/atm/clip.*: modules-extra
++  - net/atm/lec.*: modules-extra
++  - net/atm/pppoatm.*: modules-extra
++  - net/ax25/ax25.*: modules-extra
++  - net/batman-adv/batman-adv.*: modules-extra
++  - net/bridge/.*: modules-core
++  - net/ceph/.*: modules-core
++  - net/core/pktgen.*: modules-internal
++  - net/core/.*: modules-core
++  - net/dns_resolver/.*: modules-core
++  - net/hsr/.*: modules-core
++  - net/ife/.*: modules-core
++  - net/ipv4/tcp_bic.*: modules-extra
++  - net/ipv4/tcp_highspeed.*: modules-extra
++  - net/ipv4/tcp_htcp.*: modules-extra
++  - net/ipv4/tcp_hybla.*: modules-extra
++  - net/ipv4/tcp_illinois.*: modules-extra
++  - net/ipv4/tcp_lp.*: modules-extra
++  - net/ipv4/tcp_scalable.*: modules-extra
++  - net/ipv4/tcp_vegas.*: modules-extra
++  - net/ipv4/tcp_veno.*: modules-extra
++  - net/ipv4/tcp_westwood.*: modules-extra
++  - net/ipv4/tcp_yeah.*: modules-extra
++  - net/ipv4/.*: modules-core
++  - net/ipv6/.*: modules-core
++  - net/iucv/.*: modules-core
++  - net/kcm/.*: modules-core
++  - net/key/.*: modules-core
++  - net/l2tp/l2tp_debugfs.*: modules-extra
++  - net/l2tp/l2tp_eth.*: modules-extra
++  - net/l2tp/l2tp_netlink.*: modules-extra
++  - net/l2tp/l2tp_ppp.*: modules-extra
++  - net/llc/.*: modules-core
++  - net/netfilter/.*: modules-core
++  - net/netrom/netrom.*: modules-extra
++  - net/nsh/.*: modules-core
++  - net/openvswitch/.*: modules-core
++  - net/psample/.*: modules-core
++  - net/qrtr/.*: modules-core
++  - net/rds/rds.*: modules-extra
++  - net/rose/rose.*: modules-extra
++  - net/rxrpc/.*: modules-core
++  - net/sched/.*: modules-core
++  - net/sunrpc/xprtrdma/rpcrdma.*: modules
++  - net/sunrpc/.*: modules-core
++  - net/tipc/.*: modules-core
++  - net/tls/.*: modules-core
++  - net/vmw_vsock/.*: modules-core
++  - net/xdp/.*: modules-core
++  - net/xfrm/.*: modules-core
++
++  - virt/.*: modules-core
++
++  - default: modules
+diff --git a/redhat/blu_files/x509.genkey.blu b/redhat/blu_files/x509.genkey.blu
+new file mode 100644
+index 000000000000..ed411b66eb8a
+--- /dev/null
++++ b/redhat/blu_files/x509.genkey.blu
+@@ -0,0 +1,16 @@
++[ req ]
++default_bits = 4096
++distinguished_name = req_distinguished_name
++prompt = no
++x509_extensions = myexts
++
++[ req_distinguished_name ]
++#O = Unspecified company
++CN = kernel-blu signing key
++emailAddress = blu@jandroegehoff.de
++
++[ myexts ]
++basicConstraints=critical,CA:FALSE
++keyUsage=digitalSignature
++subjectKeyIdentifier=hash
++authorityKeyIdentifier=keyid
+diff --git a/redhat/configs/blu/generic/CONFIG_ACPI_EC_DEBUGFS b/redhat/configs/blu/generic/CONFIG_ACPI_EC_DEBUGFS
+new file mode 100644
+index 000000000000..dfc6b278f421
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_ACPI_EC_DEBUGFS
+@@ -0,0 +1 @@
++CONFIG_ACPI_EC_DEBUGFS=m
+diff --git a/redhat/configs/blu/generic/CONFIG_APPLE_BCE b/redhat/configs/blu/generic/CONFIG_APPLE_BCE
+new file mode 100644
+index 000000000000..0faea72ef003
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_APPLE_BCE
+@@ -0,0 +1 @@
++CONFIG_APPLE_BCE=m
+diff --git a/redhat/configs/blu/generic/CONFIG_ASUS_ARMOURY b/redhat/configs/blu/generic/CONFIG_ASUS_ARMOURY
+new file mode 100644
+index 000000000000..d0f8d71545ce
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_ASUS_ARMOURY
+@@ -0,0 +1 @@
++CONFIG_ASUS_ARMOURY=m
+diff --git a/redhat/configs/blu/generic/CONFIG_BMI323_I2C b/redhat/configs/blu/generic/CONFIG_BMI323_I2C
+new file mode 100644
+index 000000000000..d372aeb2dfb5
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_BMI323_I2C
+@@ -0,0 +1 @@
++CONFIG_BMI323_I2C=m
+diff --git a/redhat/configs/blu/generic/CONFIG_BMI323_SPI b/redhat/configs/blu/generic/CONFIG_BMI323_SPI
+new file mode 100644
+index 000000000000..d534247f478e
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_BMI323_SPI
+@@ -0,0 +1 @@
++CONFIG_BMI323_SPI=m
+diff --git a/redhat/configs/blu/generic/CONFIG_DRM_APPLETBDRM b/redhat/configs/blu/generic/CONFIG_DRM_APPLETBDRM
+new file mode 100644
+index 000000000000..0d8499351cf6
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_DRM_APPLETBDRM
+@@ -0,0 +1 @@
++CONFIG_DRM_APPLETBDRM=m
+diff --git a/redhat/configs/blu/generic/CONFIG_FB_EFI b/redhat/configs/blu/generic/CONFIG_FB_EFI
+new file mode 100644
+index 000000000000..62adf192c62a
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_FB_EFI
+@@ -0,0 +1 @@
++CONFIG_FB_EFI=y
+diff --git a/redhat/configs/blu/generic/CONFIG_FB_SIMPLE b/redhat/configs/blu/generic/CONFIG_FB_SIMPLE
+new file mode 100644
+index 000000000000..0eb3d04225f1
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_FB_SIMPLE
+@@ -0,0 +1 @@
++CONFIG_FB_SIMPLE=y
+diff --git a/redhat/configs/blu/generic/CONFIG_FB_VESA b/redhat/configs/blu/generic/CONFIG_FB_VESA
+new file mode 100644
+index 000000000000..3ef695ad37e9
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_FB_VESA
+@@ -0,0 +1 @@
++CONFIG_FB_VESA=y
+diff --git a/redhat/configs/blu/generic/CONFIG_HID_APPLETB_BL b/redhat/configs/blu/generic/CONFIG_HID_APPLETB_BL
+new file mode 100644
+index 000000000000..09f2306e3bd8
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_HID_APPLETB_BL
+@@ -0,0 +1 @@
++CONFIG_HID_APPLETB_BL=m
+diff --git a/redhat/configs/blu/generic/CONFIG_HID_APPLETB_KBD b/redhat/configs/blu/generic/CONFIG_HID_APPLETB_KBD
+new file mode 100644
+index 000000000000..e1413e3c67f0
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_HID_APPLETB_KBD
+@@ -0,0 +1 @@
++CONFIG_HID_APPLETB_KBD=m
+diff --git a/redhat/configs/blu/generic/CONFIG_HID_APPLE_MAGIC_BACKLIGHT b/redhat/configs/blu/generic/CONFIG_HID_APPLE_MAGIC_BACKLIGHT
+new file mode 100644
+index 000000000000..fe2f125a6033
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_HID_APPLE_MAGIC_BACKLIGHT
+@@ -0,0 +1 @@
++CONFIG_HID_APPLE_MAGIC_BACKLIGHT=m
+diff --git a/redhat/configs/blu/generic/CONFIG_HID_ASUS_ALLY b/redhat/configs/blu/generic/CONFIG_HID_ASUS_ALLY
+new file mode 100644
+index 000000000000..a8abcba466d3
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_HID_ASUS_ALLY
+@@ -0,0 +1 @@
++CONFIG_HID_ASUS_ALLY=m
+diff --git a/redhat/configs/blu/generic/CONFIG_I2C_NCT6775 b/redhat/configs/blu/generic/CONFIG_I2C_NCT6775
+new file mode 100644
+index 000000000000..2049d62a62a0
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_I2C_NCT6775
+@@ -0,0 +1 @@
++CONFIG_I2C_NCT6775=m
+diff --git a/redhat/configs/blu/generic/CONFIG_IPC_CLASSES b/redhat/configs/blu/generic/CONFIG_IPC_CLASSES
+new file mode 100644
+index 000000000000..7b828de94382
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_IPC_CLASSES
+@@ -0,0 +1 @@
++CONFIG_IPC_CLASSES=y
+diff --git a/redhat/configs/blu/generic/CONFIG_SECURITY_LOCKDOWN_LSM_EARLY b/redhat/configs/blu/generic/CONFIG_SECURITY_LOCKDOWN_LSM_EARLY
+new file mode 100644
+index 000000000000..4abc008d0598
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_SECURITY_LOCKDOWN_LSM_EARLY
+@@ -0,0 +1 @@
++# CONFIG_SECURITY_LOCKDOWN_LSM_EARLY is not set
+diff --git a/redhat/configs/blu/generic/CONFIG_SND_SOC_AW87XXX b/redhat/configs/blu/generic/CONFIG_SND_SOC_AW87XXX
+new file mode 100644
+index 000000000000..ecb577c3a146
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_SND_SOC_AW87XXX
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_AW87XXX=m
+diff --git a/redhat/configs/blu/generic/CONFIG_TCP_CONG_BBR2 b/redhat/configs/blu/generic/CONFIG_TCP_CONG_BBR2
+new file mode 100644
+index 000000000000..785833733e2e
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_TCP_CONG_BBR2
+@@ -0,0 +1 @@
++CONFIG_TCP_CONG_BBR2=m
+diff --git a/redhat/configs/blu/generic/CONFIG_VIDEO_DW9719 b/redhat/configs/blu/generic/CONFIG_VIDEO_DW9719
+new file mode 100644
+index 000000000000..60d04a822773
+--- /dev/null
++++ b/redhat/configs/blu/generic/CONFIG_VIDEO_DW9719
+@@ -0,0 +1 @@
++CONFIG_VIDEO_DW9719=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_ACPI_CALL b/redhat/configs/blu/generic/x86/CONFIG_ACPI_CALL
+new file mode 100644
+index 000000000000..2df0ae98fc28
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_ACPI_CALL
+@@ -0,0 +1 @@
++CONFIG_ACPI_CALL=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_IIO_HRTIMER_TRIGGER b/redhat/configs/blu/generic/x86/CONFIG_IIO_HRTIMER_TRIGGER
+new file mode 100644
+index 000000000000..8ce4ddf7d17f
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_IIO_HRTIMER_TRIGGER
+@@ -0,0 +1 @@
++CONFIG_IIO_HRTIMER_TRIGGER=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_IIO_SYSFS_TRIGGER b/redhat/configs/blu/generic/x86/CONFIG_IIO_SYSFS_TRIGGER
+new file mode 100644
+index 000000000000..ae94edc54f7f
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_IIO_SYSFS_TRIGGER
+@@ -0,0 +1 @@
++CONFIG_IIO_SYSFS_TRIGGER=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_PHY_SAMSUNG_USB2 b/redhat/configs/blu/generic/x86/CONFIG_PHY_SAMSUNG_USB2
+new file mode 100644
+index 000000000000..fed8349fbfe7
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_PHY_SAMSUNG_USB2
+@@ -0,0 +1 @@
++# CONFIG_PHY_SAMSUNG_USB2 is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_AMD_ASOC_REMBRANDT b/redhat/configs/blu/generic/x86/CONFIG_SND_AMD_ASOC_REMBRANDT
+new file mode 100644
+index 000000000000..ffb9f8ab3c5c
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_AMD_ASOC_REMBRANDT
+@@ -0,0 +1 @@
++# CONFIG_SND_AMD_ASOC_REMBRANDT is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_AMD_ASOC_RENOIR b/redhat/configs/blu/generic/x86/CONFIG_SND_AMD_ASOC_RENOIR
+new file mode 100644
+index 000000000000..fd496ff0b44d
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_AMD_ASOC_RENOIR
+@@ -0,0 +1 @@
++# CONFIG_SND_AMD_ASOC_RENOIR is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_ACP_COMMON b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_ACP_COMMON
+new file mode 100644
+index 000000000000..47132ebebe52
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_ACP_COMMON
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_AMD_ACP_COMMON=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_ACP_PCI b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_ACP_PCI
+new file mode 100644
+index 000000000000..edefb38a5dc3
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_ACP_PCI
+@@ -0,0 +1 @@
++# CONFIG_SND_SOC_AMD_ACP_PCI is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_LEGACY_MACH b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_LEGACY_MACH
+new file mode 100644
+index 000000000000..676d0ace8e26
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_LEGACY_MACH
+@@ -0,0 +1 @@
++# CONFIG_SND_SOC_AMD_LEGACY_MACH is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_MACH_COMMON b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_MACH_COMMON
+new file mode 100644
+index 000000000000..f86d65bd0a07
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_MACH_COMMON
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_AMD_MACH_COMMON=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_SOF_MACH b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_SOF_MACH
+new file mode 100644
+index 000000000000..d35eeda48d69
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_AMD_SOF_MACH
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_AMD_SOF_MACH=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF
+new file mode 100644
+index 000000000000..1587ce0415a2
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_SOF=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_AMD_ACP63 b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_AMD_ACP63
+new file mode 100644
+index 000000000000..511ab6db2459
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_AMD_ACP63
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_SOF_AMD_ACP63=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_AMD_COMMON b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_AMD_COMMON
+new file mode 100644
+index 000000000000..d4f2f8e5ecfe
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_AMD_COMMON
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_SOF_AMD_COMMON=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_INTEL_IPC4 b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_INTEL_IPC4
+new file mode 100644
+index 000000000000..79b5a5c526e9
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_INTEL_IPC4
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_SOF_INTEL_IPC4=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_IPC3 b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_IPC3
+new file mode 100644
+index 000000000000..30273f49c8a8
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_IPC3
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_SOF_IPC3=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE
+new file mode 100644
+index 000000000000..63bb20ac11e6
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_TOPOLOGY b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_TOPOLOGY
+new file mode 100644
+index 000000000000..4ea95cd2ba7f
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SOC_TOPOLOGY
+@@ -0,0 +1 @@
++CONFIG_SND_SOC_TOPOLOGY=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_SND_SPI b/redhat/configs/blu/generic/x86/CONFIG_SND_SPI
+new file mode 100644
+index 000000000000..05a828ae2203
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_SND_SPI
+@@ -0,0 +1 @@
++CONFIG_SND_SPI=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_AMD5536UDC b/redhat/configs/blu/generic/x86/CONFIG_USB_AMD5536UDC
+new file mode 100644
+index 000000000000..cf7f156b296f
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_AMD5536UDC
+@@ -0,0 +1 @@
++# CONFIG_USB_AMD5536UDC is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_BDC_UDC b/redhat/configs/blu/generic/x86/CONFIG_USB_BDC_UDC
+new file mode 100644
+index 000000000000..cc3f838c325f
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_BDC_UDC
+@@ -0,0 +1 @@
++# CONFIG_USB_BDC_UDC is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA
+new file mode 100644
+index 000000000000..0b76e3525b36
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA
+@@ -0,0 +1 @@
++CONFIG_USB_CHIPIDEA=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_GENERIC b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_GENERIC
+new file mode 100644
+index 000000000000..5a4df2a5bd23
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_GENERIC
+@@ -0,0 +1 @@
++CONFIG_USB_CHIPIDEA_GENERIC=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_HOST b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_HOST
+new file mode 100644
+index 000000000000..1c14a4a6c333
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_HOST
+@@ -0,0 +1 @@
++CONFIG_USB_CHIPIDEA_HOST=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_MSM b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_MSM
+new file mode 100644
+index 000000000000..c0ffcb890177
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_MSM
+@@ -0,0 +1 @@
++CONFIG_USB_CHIPIDEA_MSM=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_PCI b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_PCI
+new file mode 100644
+index 000000000000..3b51137a6804
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_PCI
+@@ -0,0 +1 @@
++CONFIG_USB_CHIPIDEA_PCI=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_UDC b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_UDC
+new file mode 100644
+index 000000000000..32005260779c
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_CHIPIDEA_UDC
+@@ -0,0 +1 @@
++CONFIG_USB_CHIPIDEA_UDC=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_CONFIGFS b/redhat/configs/blu/generic/x86/CONFIG_USB_CONFIGFS
+new file mode 100644
+index 000000000000..9dfe45938f4f
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_CONFIGFS
+@@ -0,0 +1 @@
++# CONFIG_USB_CONFIGFS is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DUMMY_HCD b/redhat/configs/blu/generic/x86/CONFIG_USB_DUMMY_HCD
+new file mode 100644
+index 000000000000..a110f539b4ca
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DUMMY_HCD
+@@ -0,0 +1 @@
++# CONFIG_USB_DUMMY_HCD is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2 b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2
+new file mode 100644
+index 000000000000..4355bc3f5a3d
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2
+@@ -0,0 +1 @@
++CONFIG_USB_DWC2=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_DEBUG b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_DEBUG
+new file mode 100644
+index 000000000000..c9547df3da8f
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_DEBUG
+@@ -0,0 +1 @@
++# CONFIG_USB_DWC2_DEBUG is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_DUAL_ROLE b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_DUAL_ROLE
+new file mode 100644
+index 000000000000..ea5add18c43d
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_DUAL_ROLE
+@@ -0,0 +1 @@
++CONFIG_USB_DWC2_DUAL_ROLE=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_PCI b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_PCI
+new file mode 100644
+index 000000000000..f333e4ae6eca
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_PCI
+@@ -0,0 +1 @@
++CONFIG_USB_DWC2_PCI=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_TRACK_MISSED_SOFS b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_TRACK_MISSED_SOFS
+new file mode 100644
+index 000000000000..553717e42bb4
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC2_TRACK_MISSED_SOFS
+@@ -0,0 +1 @@
++# CONFIG_USB_DWC2_TRACK_MISSED_SOFS is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3 b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3
+new file mode 100644
+index 000000000000..bd08b18bab6a
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3
+@@ -0,0 +1 @@
++CONFIG_USB_DWC3=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_DUAL_ROLE b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_DUAL_ROLE
+new file mode 100644
+index 000000000000..a12d6d8c8e81
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_DUAL_ROLE
+@@ -0,0 +1 @@
++CONFIG_USB_DWC3_DUAL_ROLE=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_HAPS b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_HAPS
+new file mode 100644
+index 000000000000..795dd513a6ac
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_HAPS
+@@ -0,0 +1 @@
++CONFIG_USB_DWC3_HAPS=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_HOST b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_HOST
+new file mode 100644
+index 000000000000..92e6edb505f2
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_HOST
+@@ -0,0 +1 @@
++# CONFIG_USB_DWC3_HOST is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_PCI b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_PCI
+new file mode 100644
+index 000000000000..d6e2ae5389b7
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_PCI
+@@ -0,0 +1 @@
++CONFIG_USB_DWC3_PCI=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_ULPI b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_ULPI
+new file mode 100644
+index 000000000000..631571301740
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_DWC3_ULPI
+@@ -0,0 +1 @@
++CONFIG_USB_DWC3_ULPI=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_EG20T b/redhat/configs/blu/generic/x86/CONFIG_USB_EG20T
+new file mode 100644
+index 000000000000..b4b20356b8b1
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_EG20T
+@@ -0,0 +1 @@
++# CONFIG_USB_EG20T is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET
+new file mode 100644
+index 000000000000..a5c34d3afa1e
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET
+@@ -0,0 +1 @@
++CONFIG_USB_GADGET=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG
+new file mode 100644
+index 000000000000..c12341631c41
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG
+@@ -0,0 +1 @@
++# CONFIG_USB_GADGET_DEBUG is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG_FILES b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG_FILES
+new file mode 100644
+index 000000000000..6da78ad92620
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG_FILES
+@@ -0,0 +1 @@
++# CONFIG_USB_GADGET_DEBUG_FILES is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG_FS b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG_FS
+new file mode 100644
+index 000000000000..ca2aa05294a5
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_DEBUG_FS
+@@ -0,0 +1 @@
++# CONFIG_USB_GADGET_DEBUG_FS is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_STORAGE_NUM_BUFFERS b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_STORAGE_NUM_BUFFERS
+new file mode 100644
+index 000000000000..3975fabf4514
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_STORAGE_NUM_BUFFERS
+@@ -0,0 +1 @@
++CONFIG_USB_GADGET_STORAGE_NUM_BUFFERS=2
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_VBUS_DRAW b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_VBUS_DRAW
+new file mode 100644
+index 000000000000..5fe4e9ad4aab
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_GADGET_VBUS_DRAW
+@@ -0,0 +1 @@
++CONFIG_USB_GADGET_VBUS_DRAW=2
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_GOKU b/redhat/configs/blu/generic/x86/CONFIG_USB_GOKU
+new file mode 100644
+index 000000000000..1086217d5a59
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_GOKU
+@@ -0,0 +1 @@
++# CONFIG_USB_GOKU is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760 b/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760
+new file mode 100644
+index 000000000000..e8fa30e98fc9
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760
+@@ -0,0 +1 @@
++CONFIG_USB_ISP1760=m
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760_DUAL_ROLE b/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760_DUAL_ROLE
+new file mode 100644
+index 000000000000..1c20e2dc46ce
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760_DUAL_ROLE
+@@ -0,0 +1 @@
++CONFIG_USB_ISP1760_DUAL_ROLE=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760_HCD b/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760_HCD
+new file mode 100644
+index 000000000000..608ac04a5c97
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1760_HCD
+@@ -0,0 +1 @@
++CONFIG_USB_ISP1760_HCD=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1761_UDC b/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1761_UDC
+new file mode 100644
+index 000000000000..484ff2291eff
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_ISP1761_UDC
+@@ -0,0 +1 @@
++CONFIG_USB_ISP1761_UDC=y
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_M66592 b/redhat/configs/blu/generic/x86/CONFIG_USB_M66592
+new file mode 100644
+index 000000000000..e24bc961c170
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_M66592
+@@ -0,0 +1 @@
++# CONFIG_USB_M66592 is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_MV_U3D b/redhat/configs/blu/generic/x86/CONFIG_USB_MV_U3D
+new file mode 100644
+index 000000000000..7da7f9818a93
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_MV_U3D
+@@ -0,0 +1 @@
++# CONFIG_USB_MV_U3D is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_MV_UDC b/redhat/configs/blu/generic/x86/CONFIG_USB_MV_UDC
+new file mode 100644
+index 000000000000..a8a97f11f006
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_MV_UDC
+@@ -0,0 +1 @@
++# CONFIG_USB_MV_UDC is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_NET2272 b/redhat/configs/blu/generic/x86/CONFIG_USB_NET2272
+new file mode 100644
+index 000000000000..758a29eb0a92
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_NET2272
+@@ -0,0 +1 @@
++# CONFIG_USB_NET2272 is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_NET2280 b/redhat/configs/blu/generic/x86/CONFIG_USB_NET2280
+new file mode 100644
+index 000000000000..8cc1599728af
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_NET2280
+@@ -0,0 +1 @@
++# CONFIG_USB_NET2280 is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_PXA27X b/redhat/configs/blu/generic/x86/CONFIG_USB_PXA27X
+new file mode 100644
+index 000000000000..e42f14cb277d
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_PXA27X
+@@ -0,0 +1 @@
++# CONFIG_USB_PXA27X is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_USB_R8A66597 b/redhat/configs/blu/generic/x86/CONFIG_USB_R8A66597
+new file mode 100644
+index 000000000000..8c908ab75c99
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_USB_R8A66597
+@@ -0,0 +1 @@
++# CONFIG_USB_R8A66597 is not set
+diff --git a/redhat/configs/blu/generic/x86/CONFIG_U_SERIAL_CONSOLE b/redhat/configs/blu/generic/x86/CONFIG_U_SERIAL_CONSOLE
+new file mode 100644
+index 000000000000..7d17468b8eb7
+--- /dev/null
++++ b/redhat/configs/blu/generic/x86/CONFIG_U_SERIAL_CONSOLE
+@@ -0,0 +1 @@
++# CONFIG_U_SERIAL_CONSOLE is not set
+diff --git a/redhat/configs/flavors b/redhat/configs/flavors
+index 5cd6410fea31..7c4bed11a491 100644
+--- a/redhat/configs/flavors
++++ b/redhat/configs/flavors
+@@ -1,2 +1 @@
+-rhel
+-fedora
++blu
+diff --git a/redhat/configs/priority.blu b/redhat/configs/priority.blu
+new file mode 100644
+index 000000000000..5703ac5ccaae
+--- /dev/null
++++ b/redhat/configs/priority.blu
+@@ -0,0 +1,24 @@
++# Entries must be ordered as base and debug (if the debug variant exists)
++# ie) config-variant-arch
++#     config-variant-arch-debug (if the -debug variant exists)
++
++# Individual entries must be ordered as
++# config-variant=config-1:config-2:config-3 in a descending order through
++# the hierarchy
++
++# -debug variants must include the entirety of the base variant
++# For example,
++#
++# config-foo: generic:generic-foo:generic-foo-bar
++# config-foo-debug: generic:generic-foo:debug:debug-foo
++# is not a valid -debug variant
++
++# kernel.config files are build on the fly based on this config,
++# the first arg is arch and variant, the second is a hierarchy of
++# config options, lowest priority to highest
++ORDER=common fedora pending-fedora blu custom-overrides
++EMPTY=s390x-zfcpdump
++
++# x86_64
++x86_64=generic:generic-x86
++x86_64-debug=generic:generic-x86:debug:debug-x86
+diff --git a/redhat/kernel.spec.template b/redhat/kernel.spec.template
+index 0af643856aca..102157dc68ce 100644
+--- a/redhat/kernel.spec.template
++++ b/redhat/kernel.spec.template
+@@ -123,11 +123,7 @@ Summary: The Linux kernel
+ %global compression_flags --compress --check=crc32 --lzma2=dict=1MiB
+ %global compext xz
+ 
+-%if 0%{?fedora}
+-%define primary_target fedora
+-%else
+-%define primary_target rhel
+-%endif
++%define primary_target blu
+ 
+ #
+ # genspec.sh variables
+@@ -144,6 +140,8 @@ Summary: The Linux kernel
+ %global include_rt %%SPECINCLUDE_RT_FILES%%
+ # Include Automotive files
+ %global include_automotive %%SPECINCLUDE_AUTOMOTIVE_FILES%%
++# Include BLU files
++%global include_blu %%SPECINCLUDE_BLU_FILES%%
+ # Provide Patchlist.changelog file
+ %global patchlist_changelog %%SPECPATCHLIST_CHANGELOG%%
+ # Set released_kernel to 1 when the upstream source tarball contains a
+@@ -1060,6 +1058,15 @@ Source487: %{name}-x86_64-automotive-debug-rhel.config
+ %endif
+ 
+ 
++%if 0%{?include_blu}
++Source500: x509.genkey.blu
++
++Source501: %{name}-x86_64-blu.config
++Source502: %{name}-x86_64-debug-blu.config
++
++Source62: def_variants.yaml.blu
++%endif
++
+ # Sources for kernel-tools
+ Source2002: kvm_stat.logrotate
+ 
+diff --git a/redhat/scripts/create-tarball.sh b/redhat/scripts/create-tarball.sh
+index 8a33a4b646cc..fab02fef3922 100755
+--- a/redhat/scripts/create-tarball.sh
++++ b/redhat/scripts/create-tarball.sh
+@@ -10,7 +10,7 @@ ARCH=$(arch)
+ XZ_OPTIONS=""
+ 
+ # convert from shortened git sha to standard 40 digit git sha
+-_GITID="$(git rev-parse "$_GITID")"
++_GITID="$(git rev-parse "$_GITID^{}")"
+ 
+ if [ "$ARCH" != "x86_64" ]
+ then
+diff --git a/redhat/scripts/genspec/genspec.sh b/redhat/scripts/genspec/genspec.sh
+index 66e262358224..90c7c0c0224e 100755
+--- a/redhat/scripts/genspec/genspec.sh
++++ b/redhat/scripts/genspec/genspec.sh
+@@ -55,6 +55,7 @@ test -f "$SOURCES/$SPECFILE" &&
+ 	s/%%SPECPATCHLIST_CHANGELOG%%/$SPECPATCHLIST_CHANGELOG/
+ 	s/%%SPECINCLUDE_RT_FILES%%/$SPECINCLUDE_RT_FILES/
+ 	s/%%SPECINCLUDE_AUTOMOTIVE_FILES%%/$SPECINCLUDE_AUTOMOTIVE_FILES/
++	s/%%SPECINCLUDE_BLU_FILES%%/$SPECINCLUDE_BLU_FILES/
+ 	s/%%SPECVERSION%%/$SPECVERSION/
+ 	s/%%SPECRPMVERSION%%/$SPECRPMVERSION/
+ 	s/%%SPECKABIVERSION%%/$SPECKABIVERSION/
+-- 
+2.49.0
+

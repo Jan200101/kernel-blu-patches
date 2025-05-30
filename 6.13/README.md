@@ -12,7 +12,7 @@ patches for kernel-blu 6.12
 	- https://github.com/Frogging-Family/linux-tkg/blob/master/linux-tkg-patches/6.12/0012-misc-additions.patch 
 - `0004-cachy-bore.patch`
 	- patch for the [bore scheduler](https://github.com/firelzrd/bore-scheduler) inherited from [CachyOS](https://cachyos.org/)
-	- https://github.com/CachyOS/kernel-patches/blob/master/6.12/sched/0001-bore.patch
+	- https://github.com/CachyOS/kernel-patches/blob/master/6.13/sched/0001-bore.patch
 - `0006-drm-i915-quirks-disable-async-page-flipping-on-some-.patch`
 	- patch to add a quirk and cmdline option which disables async page flipping under i915 which may cause multi GPU systems to run into a race condition preventing further display output
 - `0007-ASUS-ROG-Ally.patch`
