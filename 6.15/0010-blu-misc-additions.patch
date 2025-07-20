@@ -256,7 +256,7 @@ index a9b37aeb515b..f46788799632 100644
  		struct usb_host_interface *intf,
  		struct usb_endpoint_descriptor *epd);
 -- 
-2.49.0
+2.50.1
 
 
 From ea35f59472aa3f63552b21c6b718819bf1c2ea8f Mon Sep 17 00:00:00 2001
@@ -285,5 +285,5 @@ index 1468fb11e39d..52f48be5fc55 100644
  #define DS4_OUTPUT_HWCTL_HID		0x80
  
 -- 
-2.49.0
+2.50.1
 

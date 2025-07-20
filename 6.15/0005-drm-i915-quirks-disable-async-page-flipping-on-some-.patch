@@ -5,7 +5,7 @@ Subject: [PATCH 1/3] i915 async page flipping workarounds
 
 Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
 -- 
-2.49.0
+2.50.1
 
 
 From 39a3a06e430cd3886b2d65a3705d2ec5638aa396 Mon Sep 17 00:00:00 2001
@@ -58,7 +58,7 @@ index a32fae510ed2..5a0c284c6ba0 100644
  
  static struct intel_quirk intel_quirks[] = {
 -- 
-2.49.0
+2.50.1
 
 
 From 400b03f10c6d3e4bb70d6e3067b0351269420ed5 Mon Sep 17 00:00:00 2001
@@ -98,5 +98,5 @@ index 5317138e6044..88f66fbf0f5b 100644
  #define MEMBER(T, member, ...) T member;
  struct intel_display_params {
 -- 
-2.49.0
+2.50.1
 

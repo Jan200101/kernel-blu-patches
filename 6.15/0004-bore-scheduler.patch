@@ -26,7 +26,7 @@ index 000000000000..e031dea4103f
 @@ -0,0 +1 @@
 +CONFIG_SCHED_BORE=y
 -- 
-2.49.0
+2.50.1
 
 
 From 4614b8236e07063987ef8230fb844f809b4df68a Mon Sep 17 00:00:00 2001
@@ -1033,7 +1033,7 @@ index 47972f34ea70..a7c69cfbcf84 100644
  extern int sysctl_resched_latency_warn_ms;
  extern int sysctl_resched_latency_warn_once;
 -- 
-2.49.0
+2.50.1
 
 
 From 05f51aac5f758afce51fc2f7be20dd4c688c6713 Mon Sep 17 00:00:00 2001
@@ -1197,7 +1197,7 @@ index 2a1dab92a63c..fb6c3765a974 100644
  	if ((unsigned)i < nr_cpumask_bits)
  		return i;
 -- 
-2.49.0
+2.50.1
 
 
 From 64c53a7b24f6d1e46dc2ef60303cb5de983c51bd Mon Sep 17 00:00:00 2001
@@ -1232,5 +1232,5 @@ index fb6c3765a974..6e39c3d6df04 100644
 +}
 +#endif // CONFIG_SCHED_BORE
 -- 
-2.49.0
+2.50.1
 

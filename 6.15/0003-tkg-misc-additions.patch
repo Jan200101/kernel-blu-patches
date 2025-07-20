@@ -17,7 +17,7 @@ index 000000000000..199a623bb283
 @@ -0,0 +1 @@
 +CONFIG_AMD_PRIVATE_COLOR=y
 -- 
-2.49.0
+2.50.1
 
 
 From 3bf037a1ce52d91721a7925aedf457e0425db16e Mon Sep 17 00:00:00 2001
@@ -55,7 +55,7 @@ index 0731473cc9b1..5ce025ff8b6a 100644
  #if IS_ENABLED(CONFIG_HID_MAYFLASH)
  	{ HID_USB_DEVICE(USB_VENDOR_ID_DRAGONRISE, USB_DEVICE_ID_DRAGONRISE_PS3) },
 -- 
-2.49.0
+2.50.1
 
 
 From e59d1fc55afcc3092180a00f4b10423d1c88bcc7 Mon Sep 17 00:00:00 2001
@@ -94,7 +94,7 @@ index d64b07ec48e5..8c49ada95bf4 100644
  	select CPU_FREQ_GOV_PERFORMANCE
  	help
 -- 
-2.49.0
+2.50.1
 
 
 From df7521eb1a44888d8092b1fabc049bb5d258df76 Mon Sep 17 00:00:00 2001
@@ -133,7 +133,7 @@ index b0adb665041f..eea830cc90a7 100644
  	help
  	  This value can be used to select the number of bits to use to
 -- 
-2.49.0
+2.50.1
 
 
 From f050661ac1e2de4a46e16c36a2d13a10b0d2979b Mon Sep 17 00:00:00 2001
@@ -256,7 +256,7 @@ index 3e0f45f1711c..f645cb7831a0 100644
  #endif
  	/* Create (reset) the plane state */
 -- 
-2.49.0
+2.50.1
 
 
 From e5224c01ea9771ae9880a156327e77818e1a2edf Mon Sep 17 00:00:00 2001
@@ -360,5 +360,5 @@ index 46cce1d2aaf3..e3adb7aea969 100644
  			"New power limit (%d) is out of range [%d,%d]\n",
  			limit, smu->min_power_limit, smu->max_power_limit);
 -- 
-2.49.0
+2.50.1
 

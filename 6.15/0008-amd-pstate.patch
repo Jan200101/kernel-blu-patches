@@ -399,5 +399,5 @@ index f1ebc60d967f..8426de317835 100644
   * Set of available CPUs grouped by their corresponding capacities
   * Each list entry contains a CPU mask reflecting CPUs that share the same
 -- 
-2.49.0
+2.50.1
 
