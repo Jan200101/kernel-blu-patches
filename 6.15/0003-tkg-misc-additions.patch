@@ -1,4 +1,4 @@
-From 7a6b28cb5be44eda0ea7f57d040daec098add957 Mon Sep 17 00:00:00 2001
+From 72ae36f41335341532fa952ac17b0a51baebf4b9 Mon Sep 17 00:00:00 2001
 From: Jan200101 <sentrycraft123@gmail.com>
 Date: Sat, 21 Dec 2024 15:03:41 +0100
 Subject: [PATCH 1/6] tkg misc additions
@@ -20,7 +20,7 @@ index 000000000000..199a623bb283
 2.50.1
 
 
-From 3bf037a1ce52d91721a7925aedf457e0425db16e Mon Sep 17 00:00:00 2001
+From 45e691682b14772c08e3f4aff7e70ecff8711e4b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20H=C3=A4dicke?= <felixhaedicke@web.de>
 Date: Thu, 19 Nov 2020 09:22:32 +0100
 Subject: [PATCH 2/6] HID: quirks: Add Apple Magic Trackpad 2 to
@@ -42,7 +42,7 @@ Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/drivers/hid/hid-quirks.c b/drivers/hid/hid-quirks.c
-index 0731473cc9b1..5ce025ff8b6a 100644
+index 06c27308e497..255625002d40 100644
 --- a/drivers/hid/hid-quirks.c
 +++ b/drivers/hid/hid-quirks.c
 @@ -516,6 +516,8 @@ static const struct hid_device_id hid_have_special_driver[] = {
@@ -58,7 +58,7 @@ index 0731473cc9b1..5ce025ff8b6a 100644
 2.50.1
 
 
-From e59d1fc55afcc3092180a00f4b10423d1c88bcc7 Mon Sep 17 00:00:00 2001
+From be6b6fd40488a7306781d97287de545812bbd544 Mon Sep 17 00:00:00 2001
 From: Tk-Glitch <ti3nou@gmail.com>
 Date: Wed, 3 Feb 2021 11:20:12 +0200
 Subject: [PATCH 3/6] Revert "cpufreq: Avoid configuring old governors as
@@ -97,7 +97,7 @@ index d64b07ec48e5..8c49ada95bf4 100644
 2.50.1
 
 
-From df7521eb1a44888d8092b1fabc049bb5d258df76 Mon Sep 17 00:00:00 2001
+From f8c29310585086d651727c99d0a5dc5beaace348 Mon Sep 17 00:00:00 2001
 From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
 Date: Sat, 13 Jan 2024 15:29:25 +0100
 Subject: [PATCH 4/6] arch/Kconfig: Default to maximum amount of ASLR bits
@@ -136,7 +136,7 @@ index b0adb665041f..eea830cc90a7 100644
 2.50.1
 
 
-From f050661ac1e2de4a46e16c36a2d13a10b0d2979b Mon Sep 17 00:00:00 2001
+From 339cd3cad85e90feca699ad422eb2bafb0dbc1d5 Mon Sep 17 00:00:00 2001
 From: Jan200101 <sentrycraft123@gmail.com>
 Date: Sun, 22 Jun 2025 18:55:49 +0200
 Subject: [PATCH 5/6] cachy: move AMD_PRIVATE_COLOR to Kconfig
@@ -168,10 +168,10 @@ index abd3b6564373..46937e6fa78d 100644
 +
  endmenu
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0fe8bd19ecd1..37b14f31cc46 100644
+index 87c2bc5f64a6..927fb4992a6a 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4720,7 +4720,7 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
+@@ -4574,7 +4574,7 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
  		return r;
  	}
  
@@ -194,7 +194,7 @@ index ebabfe3a512f..4d3ebcaacca1 100644
   *
   * AMD driver supports pre-defined mathematical functions for transferring
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index e8bdd7f0c460..b4aafe6103bc 100644
+index db157b38f862..5d5210f99dcf 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
 @@ -481,7 +481,7 @@ static int amdgpu_dm_crtc_late_register(struct drm_crtc *crtc)
@@ -215,7 +215,7 @@ index e8bdd7f0c460..b4aafe6103bc 100644
  	.atomic_set_property = amdgpu_dm_atomic_crtc_set_property,
  	.atomic_get_property = amdgpu_dm_atomic_crtc_get_property,
  #endif
-@@ -742,7 +742,7 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+@@ -751,7 +751,7 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
  
  	drm_mode_crtc_set_gamma_size(&acrtc->base, MAX_COLOR_LEGACY_LUT_ENTRIES);
  
@@ -259,7 +259,7 @@ index 3e0f45f1711c..f645cb7831a0 100644
 2.50.1
 
 
-From e5224c01ea9771ae9880a156327e77818e1a2edf Mon Sep 17 00:00:00 2001
+From 6728f47b48fd0102406beabddf62ea4e186ad1eb Mon Sep 17 00:00:00 2001
 From: Steven Barrett <steven@liquorix.net>
 Date: Fri, 15 Mar 2024 12:36:51 -0500
 Subject: [PATCH 6/6] ZEN: drm/amdgpu/pm: Allow override of min_power_limit

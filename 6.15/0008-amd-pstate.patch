@@ -1,4 +1,4 @@
-From 39f0157631c4f3719cb61627781781dee164553d Mon Sep 17 00:00:00 2001
+From b29451cc4312c9e72c59378bd21f2d15ee2c5c3f Mon Sep 17 00:00:00 2001
 From: Peter Jung <admin@ptr1337.dev>
 Date: Thu, 19 Jun 2025 16:57:29 +0200
 Subject: [PATCH] amd-pstate
@@ -307,10 +307,10 @@ index 4302a4d60ab7..c1f6219f20eb 100644
  
  void update_sched_domain_debugfs(void)
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 6e39c3d6df04..ee98a3bb4c48 100644
+index a5462548cb31..c9448bbffe43 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -10316,7 +10316,7 @@ sched_group_asym(struct lb_env *env, struct sg_lb_stats *sgs, struct sched_group
+@@ -10336,7 +10336,7 @@ sched_group_asym(struct lb_env *env, struct sg_lb_stats *sgs, struct sched_group
  	    (sgs->group_weight - sgs->idle_cpus != 1))
  		return false;
  
@@ -319,7 +319,7 @@ index 6e39c3d6df04..ee98a3bb4c48 100644
  }
  
  /* One group has more than one SMT CPU while the other group does not */
-@@ -10553,7 +10553,8 @@ static bool update_sd_pick_busiest(struct lb_env *env,
+@@ -10573,7 +10573,8 @@ static bool update_sd_pick_busiest(struct lb_env *env,
  
  	case group_asym_packing:
  		/* Prefer to move from lowest priority CPU's work */

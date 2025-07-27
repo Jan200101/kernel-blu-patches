@@ -1,6 +1,6 @@
-From 3791c52a27a94d384d0e02ccd11cead19d87a5c0 Mon Sep 17 00:00:00 2001
+From acaa647b91062d1c525e5699c443dc62c70a05d4 Mon Sep 17 00:00:00 2001
 From: Jan200101 <sentrycraft123@gmail.com>
-Date: Fri, 18 Apr 2025 07:31:22 +0200
+Date: Sun, 27 Jul 2025 14:30:18 +0200
 Subject: [PATCH] kernel-blu base
 
 include all changes necessary to build a blu-specific kernel without the additional patches
@@ -250,7 +250,7 @@ index 000000000000..331c35f2845c
 +make IS_FEDORA=1 DIST=".fc40" BUILDID="" DISTLOCALVERSION=".blu" BUILD=201 dist-srpm
 diff --git a/redhat/blu-stable-release.sh b/redhat/blu-stable-release.sh
 new file mode 100755
-index 000000000000..9ec7e52442ce
+index 000000000000..ca49a79e3994
 --- /dev/null
 +++ b/redhat/blu-stable-release.sh
 @@ -0,0 +1,25 @@
@@ -269,11 +269,11 @@ index 000000000000..9ec7e52442ce
 +
 +for release in $( cat redhat/release_targets );  do 
 +	case "$release" in
-+	42) build=30$releasenum
++	43) build=30$releasenum
 +	    ;;
-+	41) build=20$releasenum
++	42) build=20$releasenum
 +	    ;;
-+	40) build=10$releasenum
++	41) build=10$releasenum
 +	    ;;
 +	esac
 +	make IS_FEDORA=1 DIST=".fc$release" BUILDID="" DISTLOCALVERSION=".blu" BUILD=$build dist-srpm

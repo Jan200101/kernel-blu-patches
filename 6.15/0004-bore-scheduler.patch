@@ -1,7 +1,7 @@
-From 041fbbb0bd04eab0d5c8b1e9470b5a4bd3d6e880 Mon Sep 17 00:00:00 2001
+From 0933d9268cdf6150d99f1c44950a9cdbf1ec6cb1 Mon Sep 17 00:00:00 2001
 From: Jan200101 <sentrycraft123@gmail.com>
 Date: Wed, 1 Jan 2025 19:51:21 +0100
-Subject: [PATCH 1/4] bore scheduler
+Subject: [PATCH 1/3] bore scheduler
 
 Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
 ---
@@ -29,10 +29,10 @@ index 000000000000..e031dea4103f
 2.50.1
 
 
-From d2d2bf62b866362465b6e7982940b32be499a48d Mon Sep 17 00:00:00 2001
+From 657bc59ba6f3e97d4b6db0f1ba8e5f87757423b6 Mon Sep 17 00:00:00 2001
 From: Masahito S <firelzrd@gmail.com>
 Date: Sun, 13 Jul 2025 02:21:27 +0900
-Subject: [PATCH 2/4] linux6.15.6-bore-6.0.0
+Subject: [PATCH 2/3] linux6.15.6-bore-6.0.0
 
 Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
 ---
@@ -1055,7 +1055,7 @@ index 138d9f4658d5..5f1d4dd44c85 100644
  
  	set_task_max_allowed_capacity(p);
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 47972f34ea70..a7c69cfbcf84 100644
+index d6f82833f652..a739aafa9145 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
 @@ -2100,7 +2100,11 @@ extern int group_balance_cpu(struct sched_group *sg);
@@ -1087,10 +1087,10 @@ index 47972f34ea70..a7c69cfbcf84 100644
 2.50.1
 
 
-From 0f2dbb50d7f720baf8a17c0c23a3a193b6054b65 Mon Sep 17 00:00:00 2001
+From 29250920df1785db4ec1c7746a23e6e7bbcd704e Mon Sep 17 00:00:00 2001
 From: Masahito S <firelzrd@gmail.com>
 Date: Sat, 10 May 2025 13:19:56 +0900
-Subject: [PATCH 3/4] sched/fair: Prefer full-idle SMT cores
+Subject: [PATCH 3/3] sched/fair: Prefer full-idle SMT cores
 
 When selecting an idle CPU for a task, always try to prioritize
 full-idle SMT cores (CPUs belonging to an SMT core where all its sibling
@@ -1247,41 +1247,6 @@ index 5f1d4dd44c85..a5462548cb31 100644
  	i = select_idle_cpu(p, sd, has_idle_core, target);
  	if ((unsigned)i < nr_cpumask_bits)
  		return i;
--- 
-2.50.1
-
-
-From 05773834d73dbb1aacfe5fe87d05e3becf4cf937 Mon Sep 17 00:00:00 2001
-From: Masahito S <firelzrd@gmail.com>
-Date: Mon, 15 Jul 2024 19:58:21 +0900
-Subject: [PATCH 4/4] sched-ext-coexistence-fix
-
-Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
----
- kernel/sched/fair.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index a5462548cb31..4453f94b6de3 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -13811,3 +13811,16 @@ __init void init_sched_fair_class(void)
- #endif /* SMP */
- 
- }
-+
-+#ifdef CONFIG_SCHED_BORE
-+void reweight_task(struct task_struct *p, int prio)
-+{
-+	struct sched_entity *se = &p->se;
-+	struct cfs_rq *cfs_rq = cfs_rq_of(se);
-+	struct load_weight *load = &se->load;
-+	unsigned long weight = scale_load(sched_prio_to_weight[prio]);
-+
-+	reweight_entity(cfs_rq, se, weight);
-+	load->inv_weight = sched_prio_to_wmult[prio];
-+}
-+#endif // CONFIG_SCHED_BORE
 -- 
 2.50.1
 
