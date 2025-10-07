@@ -1,4 +1,4 @@
-From 64b30d78e5b2e56e21290e40843e83c774ac613f Mon Sep 17 00:00:00 2001
+From 2d582b8df9efb6e253873a6dd36a649bbee4867c Mon Sep 17 00:00:00 2001
 From: GloriousEggroll <gloriouseggroll@gmail.com>
 Date: Tue, 1 Apr 2025 19:37:37 +0200
 Subject: [PATCH 1/2] blu misc additions
@@ -14,10 +14,10 @@ Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
  4 files changed, 179 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index f6d317e1674d..e1875ee9d837 100644
+index 089e1a395178..94669a29b09c 100644
 --- a/Documentation/admin-guide/kernel-parameters.txt
 +++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -7766,6 +7766,14 @@
+@@ -7767,6 +7767,14 @@
  					request from 5000 ms to 500 ms);
  			Example: quirks=0781:5580:bk,0a5c:5834:gij
  
@@ -259,7 +259,7 @@ index a9b37aeb515b..f46788799632 100644
 2.51.0
 
 
-From c40906e2923b308216c614c407c12ac67e9c5eda Mon Sep 17 00:00:00 2001
+From 43c42773d4aa030e62634a8b13856968543fdece Mon Sep 17 00:00:00 2001
 From: GloriousEggroll <gloriouseggroll@gmail.com>
 Date: Mon, 29 May 2023 17:15:14 -0600
 Subject: [PATCH 2/2] set ds controller bluetooth pollrate to 1 ms

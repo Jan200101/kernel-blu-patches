@@ -1,4 +1,4 @@
-From 3e00bc2cfe249441042c16fb9f47af9e79d96c27 Mon Sep 17 00:00:00 2001
+From 92f63a9d09ec4521737e19389fc4ea5ccbf57912 Mon Sep 17 00:00:00 2001
 From: Jan200101 <sentrycraft123@gmail.com>
 Date: Thu, 20 Feb 2025 22:08:41 +0100
 Subject: [PATCH] drm/amdgpu: enable SI and CIK support by default

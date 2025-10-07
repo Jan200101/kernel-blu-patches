@@ -1,4 +1,4 @@
-From 3c974a2949f06e90e364711675a84ac3dd6e0ab8 Mon Sep 17 00:00:00 2001
+From f5fd733823ba5339145ad1c20bb2e0e1275d0733 Mon Sep 17 00:00:00 2001
 From: Jan200101 <sentrycraft123@gmail.com>
 Date: Sat, 21 Dec 2024 15:03:41 +0100
 Subject: [PATCH 1/6] tkg misc additions
@@ -20,7 +20,7 @@ index 000000000000..199a623bb283
 2.51.0
 
 
-From d7b08b292dd920b8ceb837639808b7d96451f8ec Mon Sep 17 00:00:00 2001
+From 2f4061be9627f20ef850e4a9782c4d7d7376d800 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20H=C3=A4dicke?= <felixhaedicke@web.de>
 Date: Thu, 19 Nov 2020 09:22:32 +0100
 Subject: [PATCH 2/6] HID: quirks: Add Apple Magic Trackpad 2 to
@@ -42,10 +42,10 @@ Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/drivers/hid/hid-quirks.c b/drivers/hid/hid-quirks.c
-index 9bf9ce8dc803..3df2f93bee32 100644
+index 416160cfde77..4f3816491804 100644
 --- a/drivers/hid/hid-quirks.c
 +++ b/drivers/hid/hid-quirks.c
-@@ -517,6 +517,8 @@ static const struct hid_device_id hid_have_special_driver[] = {
+@@ -520,6 +520,8 @@ static const struct hid_device_id hid_have_special_driver[] = {
  #if IS_ENABLED(CONFIG_HID_MAGICMOUSE)
  	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_MAGICMOUSE) },
  	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_MAGICTRACKPAD) },
@@ -58,7 +58,7 @@ index 9bf9ce8dc803..3df2f93bee32 100644
 2.51.0
 
 
-From 056e11bd5c6884264164df1fe3cc5e9b1b738df2 Mon Sep 17 00:00:00 2001
+From 050c18823511a58588ee9e58c32c94a8bdbc4e94 Mon Sep 17 00:00:00 2001
 From: Tk-Glitch <ti3nou@gmail.com>
 Date: Wed, 3 Feb 2021 11:20:12 +0200
 Subject: [PATCH 3/6] Revert "cpufreq: Avoid configuring old governors as
@@ -97,7 +97,7 @@ index 78702a08364f..a9458f88a059 100644
 2.51.0
 
 
-From d75c06d79f153b3d09a1dfb7c8a04ac6a8c7f21c Mon Sep 17 00:00:00 2001
+From c42aaad67366f545aa10656ae12d69e4fccaf74f Mon Sep 17 00:00:00 2001
 From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
 Date: Sat, 13 Jan 2024 15:29:25 +0100
 Subject: [PATCH 4/6] arch/Kconfig: Default to maximum amount of ASLR bits
@@ -136,7 +136,7 @@ index a3308a220f86..24d44e9aa729 100644
 2.51.0
 
 
-From 53ad4d5a13dd8e6c3ac388edcfe1c90a7030ccaa Mon Sep 17 00:00:00 2001
+From 3b3f0b7c00e20bec5573032d5be603685e440367 Mon Sep 17 00:00:00 2001
 From: Peter Jung <admin@ptr1337.dev>
 Date: Thu, 21 Mar 2024 19:00:50 +0100
 Subject: [PATCH 5/6] cachy: move AMD_PRIVATE_COLOR to Kconfig
@@ -168,10 +168,10 @@ index abd3b6564373..46937e6fa78d 100644
 +
  endmenu
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 2d94fec5b545..bf984bba62ec 100644
+index fa24bcae3c5f..912ea7dabfd1 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4652,7 +4652,7 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
+@@ -4665,7 +4665,7 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
  		return r;
  	}
  
@@ -259,7 +259,7 @@ index b7c6e8d13435..fc8dda5df287 100644
 2.51.0
 
 
-From 911946c9d7966c4f6d0478131feaa7300659c8ab Mon Sep 17 00:00:00 2001
+From 70134b373bf99b29c2e5c0e7a548f9a58eab5403 Mon Sep 17 00:00:00 2001
 From: Steven Barrett <steven@liquorix.net>
 Date: Fri, 15 Mar 2024 12:36:51 -0500
 Subject: [PATCH 6/6] ZEN: drm/amdgpu/pm: Allow override of min_power_limit
@@ -314,7 +314,7 @@ index 108c30ae57b1..dd98f54a447a 100644
   * DOC: vramlimit (int)
   * Restrict the total amount of VRAM in MiB for testing.  The default is 0 (Use full VRAM).
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 39ee81085088..a2df219060dc 100644
+index f417c5eb0f41..accf1f539f9e 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
 @@ -3073,6 +3073,9 @@ static ssize_t amdgpu_hwmon_show_power_cap_min(struct device *dev,
@@ -328,7 +328,7 @@ index 39ee81085088..a2df219060dc 100644
  }
  
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 26b8e232f858..99f234e488c0 100644
+index 2278a123db23..a592cf07457a 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
 @@ -2870,7 +2870,10 @@ int smu_get_power_limit(void *handle,

@@ -1,4 +1,4 @@
-From 32baeb8ec8b7686b33633879be6a0e135052e97f Mon Sep 17 00:00:00 2001
+From c812e81a10d483b0d9e25a9c174f82c52e09885a Mon Sep 17 00:00:00 2001
 From: Jan200101 <sentrycraft123@gmail.com>
 Date: Sun, 22 Jun 2025 22:41:57 +0200
 Subject: [PATCH 01/37] linux surface
@@ -56,7 +56,7 @@ index 000000000000..106ba6b9656b
 2.51.0
 
 
-From 0380603bdafb844823d62fe944756dd0eff63dd5 Mon Sep 17 00:00:00 2001
+From 32eca619a68260ca7e4f3b0274254b951883ddcf Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 9 Jun 2024 19:48:58 +0200
 Subject: [PATCH 02/37] Revert "efi/x86: Set the PE/COFF header's NX compat
@@ -95,7 +95,7 @@ index e1f4fd5bc8ee..64f8dc548045 100644
 2.51.0
 
 
-From 2f97d674ded1ad9647fd098abec7b29f7ef7ec87 Mon Sep 17 00:00:00 2001
+From 57cdd9463a4855970e58a5167ed08441fde2ca80 Mon Sep 17 00:00:00 2001
 From: "J. Eduardo" <j.eduardo@gmail.com>
 Date: Sun, 25 Aug 2024 14:17:45 +0200
 Subject: [PATCH 03/37] PM: hibernate: Add a lockdown_hibernate parameter
@@ -114,7 +114,7 @@ Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
  2 files changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index e1875ee9d837..90f55fcc40a6 100644
+index 94669a29b09c..878a14d3ff9e 100644
 --- a/Documentation/admin-guide/kernel-parameters.txt
 +++ b/Documentation/admin-guide/kernel-parameters.txt
 @@ -3243,6 +3243,11 @@
@@ -130,7 +130,7 @@ index e1875ee9d837..90f55fcc40a6 100644
  			Set the time limit in jiffies for a lock
  			acquisition.  Acquisitions exceeding this limit
 diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index 9216e3b91d3b..ff774a584022 100644
+index c8022a477d3a..d6feab73fad5 100644
 --- a/kernel/power/hibernate.c
 +++ b/kernel/power/hibernate.c
 @@ -38,6 +38,7 @@
@@ -150,7 +150,7 @@ index 9216e3b91d3b..ff774a584022 100644
  		!secretmem_active() && !cxl_mem_active();
  }
  
-@@ -1456,6 +1457,12 @@ static int __init nohibernate_setup(char *str)
+@@ -1457,6 +1458,12 @@ static int __init nohibernate_setup(char *str)
  	return 1;
  }
  
@@ -163,7 +163,7 @@ index 9216e3b91d3b..ff774a584022 100644
  static const char * const comp_alg_enabled[] = {
  #if IS_ENABLED(CONFIG_CRYPTO_LZO)
  	COMPRESSION_ALGO_LZO,
-@@ -1513,3 +1520,4 @@ __setup("hibernate=", hibernate_setup);
+@@ -1514,3 +1521,4 @@ __setup("hibernate=", hibernate_setup);
  __setup("resumewait", resumewait_setup);
  __setup("resumedelay=", resumedelay_setup);
  __setup("nohibernate", nohibernate_setup);
@@ -172,7 +172,7 @@ index 9216e3b91d3b..ff774a584022 100644
 2.51.0
 
 
-From 9eba9d83ddb78eb842a4e0f8fe8bf3a65af311fc Mon Sep 17 00:00:00 2001
+From 22c65513aff6b626bd7cca50e8b1192e36ea2376 Mon Sep 17 00:00:00 2001
 From: Tsuchiya Yuto <kitakar@gmail.com>
 Date: Sun, 18 Oct 2020 16:42:44 +0900
 Subject: [PATCH 04/37] (surface3-oemb) add DMI matches for Surface 3 with
@@ -275,7 +275,7 @@ index e4c3492a0c28..0b930c91bccb 100644
 2.51.0
 
 
-From 2901fef23d358e0e1b06fce3adf457983d979338 Mon Sep 17 00:00:00 2001
+From c57524c381a839255f7ba6f2127a00eaffea5c8f Mon Sep 17 00:00:00 2001
 From: kitakar5525 <34676735+kitakar5525@users.noreply.github.com>
 Date: Fri, 6 Dec 2019 23:10:30 +0900
 Subject: [PATCH 05/37] surface3-spi: workaround: disable DMA mode to avoid
@@ -410,7 +410,7 @@ index 6074b7730e86..6aa3e1d6f160 100644
 2.51.0
 
 
-From 48ee81d6c13d6a190a365bf0edf3b3c6720a5b27 Mon Sep 17 00:00:00 2001
+From 9c83e41abefacab0c9563c2e81679774492cb6a2 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
 Date: Tue, 3 Nov 2020 13:28:04 +0100
 Subject: [PATCH 06/37] mwifiex: Add quirk resetting the PCI bridge on MS
@@ -579,7 +579,7 @@ index d6ff964aec5b..5d30ae39d65e 100644
 2.51.0
 
 
-From d3c323d80f9105444be521a3737f1267a60d9669 Mon Sep 17 00:00:00 2001
+From d262f40c14e1e7a195828e80d2632c22582924ec Mon Sep 17 00:00:00 2001
 From: Tsuchiya Yuto <kitakar@gmail.com>
 Date: Sun, 4 Oct 2020 00:11:49 +0900
 Subject: [PATCH 07/37] mwifiex: pcie: disable bridge_d3 for Surface gen4+
@@ -736,7 +736,7 @@ index 5d30ae39d65e..c14eb56eb911 100644
 2.51.0
 
 
-From 1d9b1160f25d7c289127e9d056552e179a8725cf Mon Sep 17 00:00:00 2001
+From dd30a0cf8dea802c7f3c910759284e3c13076eb9 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
 Date: Thu, 25 Mar 2021 11:33:02 +0100
 Subject: [PATCH 08/37] Bluetooth: btusb: Lower passive lescan interval on
@@ -816,7 +816,7 @@ index 9efdd111baf5..6c68639f9f5d 100644
 2.51.0
 
 
-From e6c1cc7c349b43cef9937aeef3159b814ce1cdc6 Mon Sep 17 00:00:00 2001
+From b4914e0a089edc739046549de273d6bdfff9649d Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 27 Feb 2021 00:45:52 +0100
 Subject: [PATCH 09/37] ath10k: Add module parameters to override board files
@@ -938,7 +938,7 @@ index 8b659678856d..5ed699691b39 100644
 2.51.0
 
 
-From 8c0c901c0bfe42eeeb577cc089a2bda60d395e13 Mon Sep 17 00:00:00 2001
+From b19db5d5d410b70e8c4f2afa1029071ba91b0b3d Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Thu, 30 Jul 2020 13:21:53 +0200
 Subject: [PATCH 10/37] mei: me: Add Icelake device ID for iTouch
@@ -979,7 +979,7 @@ index 3f9c60b579ae..853a67753333 100644
 2.51.0
 
 
-From b33f46b20b5ab744f998cb8df8ea8ec467b9c9c7 Mon Sep 17 00:00:00 2001
+From 6ce79467859e78a133cd2025b671152faa4d8504 Mon Sep 17 00:00:00 2001
 From: Liban Hannan <liban.p@gmail.com>
 Date: Tue, 12 Apr 2022 23:31:12 +0100
 Subject: [PATCH 11/37] iommu: Use IOMMU passthrough mode for IPTS
@@ -1004,7 +1004,7 @@ Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
  1 file changed, 29 insertions(+)
 
 diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index c239e280e43d..56db67deb555 100644
+index 3dd4d73fcb5d..98def863f736 100644
 --- a/drivers/iommu/intel/iommu.c
 +++ b/drivers/iommu/intel/iommu.c
 @@ -39,6 +39,11 @@
@@ -1019,7 +1019,7 @@ index c239e280e43d..56db67deb555 100644
  #define IOAPIC_RANGE_START	(0xfee00000)
  #define IOAPIC_RANGE_END	(0xfeefffff)
  #define IOVA_START_ADDR		(0x1000)
-@@ -207,12 +212,14 @@ int intel_iommu_sm = IS_ENABLED(CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON);
+@@ -209,12 +214,14 @@ int intel_iommu_sm = IS_ENABLED(CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON);
  int intel_iommu_enabled = 0;
  EXPORT_SYMBOL_GPL(intel_iommu_enabled);
  
@@ -1034,7 +1034,7 @@ index c239e280e43d..56db67deb555 100644
  
  const struct iommu_ops intel_iommu_ops;
  static const struct iommu_dirty_ops intel_dirty_ops;
-@@ -1899,6 +1906,9 @@ static int device_def_domain_type(struct device *dev)
+@@ -1897,6 +1904,9 @@ static int device_def_domain_type(struct device *dev)
  
  		if ((iommu_identity_mapping & IDENTMAP_AZALIA) && IS_AZALIA(pdev))
  			return IOMMU_DOMAIN_IDENTITY;
@@ -1044,7 +1044,7 @@ index c239e280e43d..56db67deb555 100644
  	}
  
  	return 0;
-@@ -2189,6 +2199,9 @@ static int __init init_dmars(void)
+@@ -2187,6 +2197,9 @@ static int __init init_dmars(void)
  		iommu_set_root_entry(iommu);
  	}
  
@@ -1054,7 +1054,7 @@ index c239e280e43d..56db67deb555 100644
  	check_tylersburg_isoch();
  
  	/*
-@@ -4414,6 +4427,18 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
+@@ -4516,6 +4529,18 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
  	disable_igfx_iommu = 1;
  }
  
@@ -1073,7 +1073,7 @@ index c239e280e43d..56db67deb555 100644
  /* G4x/GM45 integrated gfx dmar support is totally busted. */
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2a40, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2e00, quirk_iommu_igfx);
-@@ -4452,6 +4477,10 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
+@@ -4554,6 +4579,10 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163A, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163D, quirk_iommu_igfx);
  
@@ -1088,7 +1088,7 @@ index c239e280e43d..56db67deb555 100644
 2.51.0
 
 
-From 7a292c49d28747098907bae366d0042c93ff96cd Mon Sep 17 00:00:00 2001
+From 0ce75ce7093a61724a1163feac6e30b006a5a4e4 Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Sun, 11 Dec 2022 12:00:59 +0100
 Subject: [PATCH 12/37] hid: Add support for Intel Precise Touch and Stylus
@@ -4187,7 +4187,7 @@ index 000000000000..1f966b8b32c4
 2.51.0
 
 
-From cc25bacc5c5afa84c52c9c0b1cdff4372283a8ea Mon Sep 17 00:00:00 2001
+From 27e71e45015f33d59bf07a79293cc101a55cacfa Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Sun, 11 Dec 2022 12:03:38 +0100
 Subject: [PATCH 13/37] iommu: intel: Disable source id verification for ITHC
@@ -4230,7 +4230,7 @@ index cf7b6882ec75..55ab16865774 100644
 2.51.0
 
 
-From 9d301c6d02df64cc02963312a353dc1030029945 Mon Sep 17 00:00:00 2001
+From 5c77d80ec6eb00ef1e4de830019def97fb7388df Mon Sep 17 00:00:00 2001
 From: quo <tuple@list.ru>
 Date: Sun, 11 Dec 2022 12:10:54 +0100
 Subject: [PATCH 14/37] hid: Add support for Intel Touch Host Controller
@@ -6971,7 +6971,7 @@ index 000000000000..aec320d4e945
 2.51.0
 
 
-From 744cf4639536b0ae096829cd48b8fd0648b57517 Mon Sep 17 00:00:00 2001
+From eadc3c320eee0138a5dea71571655594bdf13916 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Fri, 17 Jun 2022 02:14:00 +0200
 Subject: [PATCH 15/37] rtc: Add basic support for RTC via Surface System
@@ -7156,7 +7156,7 @@ index 000000000000..f6c17c4e98d5
 2.51.0
 
 
-From 6275b2fa6416e53a6c82a75368afe9224001077e Mon Sep 17 00:00:00 2001
+From ea0e4f34e2d8f12fa8a1d6ac8e97ddef3602f325 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 20 Apr 2025 01:05:14 +0200
 Subject: [PATCH 16/37] platform/surface: aggregator_registry: Add Surface
@@ -7186,7 +7186,7 @@ index a594d5fcfcfd..07b03aa4fa7f 100644
 2.51.0
 
 
-From 3877b9989cc4157d28c496ecef117329040af686 Mon Sep 17 00:00:00 2001
+From d74329fe3f627e652e8f7c5923f86dce269ca34f Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 25 Jul 2020 17:19:53 +0200
 Subject: [PATCH 17/37] i2c: acpi: Implement RawBytes read access
@@ -7299,7 +7299,7 @@ index f43067f6797e..1761ca30e17a 100644
 2.51.0
 
 
-From d9dc81d1934407fc9da5a51554bade1245d30d0d Mon Sep 17 00:00:00 2001
+From ed901daf50bc47cf35828d0869431fe760ab9cbc Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 13 Feb 2021 16:41:18 +0100
 Subject: [PATCH 18/37] platform/surface: Add driver for Surface Book 1 dGPU
@@ -7499,7 +7499,7 @@ index 000000000000..68db237734a1
 2.51.0
 
 
-From a731fce0fbef4249e8edc37cc6c6715af71dc48b Mon Sep 17 00:00:00 2001
+From c911f6c977dfd072513bf63652f78f7b43a0a65c Mon Sep 17 00:00:00 2001
 From: Sachi King <nakato@nakato.io>
 Date: Tue, 5 Oct 2021 00:05:09 +1100
 Subject: [PATCH 19/37] Input: soc_button_array - support AMD variant Surface
@@ -7579,7 +7579,7 @@ index b8cad415c62c..43b5d56383e3 100644
 2.51.0
 
 
-From 202af2d39754cdaa344233bd28142bd182cb7155 Mon Sep 17 00:00:00 2001
+From 7ed4817320bac8fee56823b0aedaae81641e6349 Mon Sep 17 00:00:00 2001
 From: Sachi King <nakato@nakato.io>
 Date: Tue, 5 Oct 2021 00:22:57 +1100
 Subject: [PATCH 20/37] platform/surface: surfacepro3_button: don't load on amd
@@ -7653,7 +7653,7 @@ index 2755601f979c..4240c98ca226 100644
 2.51.0
 
 
-From d7b6db6e010e106227ac65879e4105df3d6172b7 Mon Sep 17 00:00:00 2001
+From b2c44ffd0ab6d0045e6303e53da83fa4f545ccc1 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 18 Feb 2023 01:02:49 +0100
 Subject: [PATCH 21/37] USB: quirks: Add USB_QUIRK_DELAY_INIT for Surface Go 3
@@ -7679,7 +7679,7 @@ Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-index d6daad39491b..2e50dd89b800 100644
+index f5bc53875330..31fa895d73c4 100644
 --- a/drivers/usb/core/quirks.c
 +++ b/drivers/usb/core/quirks.c
 @@ -223,6 +223,9 @@ static const struct usb_device_id usb_quirk_list[] = {
@@ -7696,7 +7696,7 @@ index d6daad39491b..2e50dd89b800 100644
 2.51.0
 
 
-From 154e1b560b84a15f50c46a7b4195a60cc88d55b3 Mon Sep 17 00:00:00 2001
+From cf5671ff33d50c949a2b7832cdd7b24099031901 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
 Date: Thu, 5 Nov 2020 13:09:45 +0100
 Subject: [PATCH 22/37] hid/multitouch: Turn off Type Cover keyboard backlight
@@ -7733,7 +7733,7 @@ Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
  1 file changed, 98 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index a1c54ffe02b4..3acf2719cea4 100644
+index edb8da49d916..650df45e9f13 100644
 --- a/drivers/hid/hid-multitouch.c
 +++ b/drivers/hid/hid-multitouch.c
 @@ -35,7 +35,10 @@
@@ -7755,11 +7755,11 @@ index a1c54ffe02b4..3acf2719cea4 100644
  
  /* quirks to control the device */
  #define MT_QUIRK_NOT_SEEN_MEANS_UP	BIT(0)
-@@ -73,12 +77,15 @@ MODULE_LICENSE("GPL");
- #define MT_QUIRK_FORCE_MULTI_INPUT	BIT(20)
+@@ -74,12 +78,15 @@ MODULE_LICENSE("GPL");
  #define MT_QUIRK_DISABLE_WAKEUP		BIT(21)
  #define MT_QUIRK_ORIENTATION_INVERT	BIT(22)
-+#define MT_QUIRK_HAS_TYPE_COVER_BACKLIGHT	BIT(23)
+ #define MT_QUIRK_APPLE_TOUCHBAR		BIT(23)
++#define MT_QUIRK_HAS_TYPE_COVER_BACKLIGHT	BIT(24)
  
  #define MT_INPUTMODE_TOUCHSCREEN	0x02
  #define MT_INPUTMODE_TOUCHPAD		0x03
@@ -7771,7 +7771,7 @@ index a1c54ffe02b4..3acf2719cea4 100644
  enum latency_mode {
  	HID_LATENCY_NORMAL = 0,
  	HID_LATENCY_HIGH = 1,
-@@ -176,6 +183,8 @@ struct mt_device {
+@@ -177,6 +184,8 @@ struct mt_device {
  
  	struct list_head applications;
  	struct list_head reports;
@@ -7780,7 +7780,7 @@ index a1c54ffe02b4..3acf2719cea4 100644
  };
  
  static void mt_post_parse_default_settings(struct mt_device *td,
-@@ -220,6 +229,7 @@ static void mt_post_parse(struct mt_device *td, struct mt_application *app);
+@@ -221,6 +230,7 @@ static void mt_post_parse(struct mt_device *td, struct mt_application *app);
  #define MT_CLS_GOOGLE				0x0111
  #define MT_CLS_RAZER_BLADE_STEALTH		0x0112
  #define MT_CLS_SMART_TECH			0x0113
@@ -7788,7 +7788,7 @@ index a1c54ffe02b4..3acf2719cea4 100644
  #define MT_CLS_SIS				0x0457
  
  #define MT_DEFAULT_MAXCONTACT	10
-@@ -410,6 +420,16 @@ static const struct mt_class mt_classes[] = {
+@@ -411,6 +421,16 @@ static const struct mt_class mt_classes[] = {
  			MT_QUIRK_ALWAYS_VALID |
  			MT_QUIRK_CONTACT_CNT_ACCURATE,
  	},
@@ -7805,7 +7805,7 @@ index a1c54ffe02b4..3acf2719cea4 100644
  	{ }
  };
  
-@@ -1759,6 +1779,69 @@ static void mt_expired_timeout(struct timer_list *t)
+@@ -1802,6 +1822,69 @@ static void mt_expired_timeout(struct timer_list *t)
  	clear_bit_unlock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags);
  }
  
@@ -7875,7 +7875,7 @@ index a1c54ffe02b4..3acf2719cea4 100644
  static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
  {
  	int ret, i;
-@@ -1782,6 +1865,9 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+@@ -1825,6 +1908,9 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
  	td->inputmode_value = MT_INPUTMODE_TOUCHSCREEN;
  	hid_set_drvdata(hdev, td);
  
@@ -7885,7 +7885,7 @@ index a1c54ffe02b4..3acf2719cea4 100644
  	INIT_LIST_HEAD(&td->applications);
  	INIT_LIST_HEAD(&td->reports);
  
-@@ -1820,8 +1906,10 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+@@ -1863,8 +1949,10 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
  	timer_setup(&td->release_timer, mt_expired_timeout, 0);
  
  	ret = hid_parse(hdev);
@@ -7897,7 +7897,7 @@ index a1c54ffe02b4..3acf2719cea4 100644
  
  	if (mtclass->quirks & MT_QUIRK_FIX_CONST_CONTACT_ID)
  		mt_fix_const_fields(hdev, HID_DG_CONTACTID);
-@@ -1830,8 +1918,10 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+@@ -1873,8 +1961,10 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
  		hdev->quirks |= HID_QUIRK_NOGET;
  
  	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
@@ -7909,7 +7909,7 @@ index a1c54ffe02b4..3acf2719cea4 100644
  
  	ret = sysfs_create_group(&hdev->dev.kobj, &mt_attribute_group);
  	if (ret)
-@@ -1881,6 +1971,7 @@ static void mt_remove(struct hid_device *hdev)
+@@ -1924,6 +2014,7 @@ static void mt_remove(struct hid_device *hdev)
  {
  	struct mt_device *td = hid_get_drvdata(hdev);
  
@@ -7917,7 +7917,7 @@ index a1c54ffe02b4..3acf2719cea4 100644
  	timer_delete_sync(&td->release_timer);
  
  	sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
-@@ -2320,6 +2411,11 @@ static const struct hid_device_id mt_devices[] = {
+@@ -2363,6 +2454,11 @@ static const struct hid_device_id mt_devices[] = {
  		MT_USB_DEVICE(USB_VENDOR_ID_XIROKU,
  			USB_DEVICE_ID_XIROKU_CSR2) },
  
@@ -7933,7 +7933,7 @@ index a1c54ffe02b4..3acf2719cea4 100644
 2.51.0
 
 
-From 6a7a1c634b4d650b181a45a1cc1d10c8cf685423 Mon Sep 17 00:00:00 2001
+From 89998a2dd1641c2c605a78d79cd6531e02268cd4 Mon Sep 17 00:00:00 2001
 From: PJungkamp <p.jungkamp@gmail.com>
 Date: Fri, 25 Feb 2022 12:04:25 +0100
 Subject: [PATCH 23/37] hid/multitouch: Add support for surface pro type cover
@@ -7963,18 +7963,18 @@ Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
  1 file changed, 122 insertions(+), 26 deletions(-)
 
 diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 3acf2719cea4..a359afb687af 100644
+index 650df45e9f13..bb63fe858d87 100644
 --- a/drivers/hid/hid-multitouch.c
 +++ b/drivers/hid/hid-multitouch.c
-@@ -78,6 +78,7 @@ MODULE_LICENSE("GPL");
- #define MT_QUIRK_DISABLE_WAKEUP		BIT(21)
+@@ -79,6 +79,7 @@ MODULE_LICENSE("GPL");
  #define MT_QUIRK_ORIENTATION_INVERT	BIT(22)
- #define MT_QUIRK_HAS_TYPE_COVER_BACKLIGHT	BIT(23)
-+#define MT_QUIRK_HAS_TYPE_COVER_TABLET_MODE_SWITCH	BIT(24)
+ #define MT_QUIRK_APPLE_TOUCHBAR		BIT(23)
+ #define MT_QUIRK_HAS_TYPE_COVER_BACKLIGHT	BIT(24)
++#define MT_QUIRK_HAS_TYPE_COVER_TABLET_MODE_SWITCH	BIT(25)
  
  #define MT_INPUTMODE_TOUCHSCREEN	0x02
  #define MT_INPUTMODE_TOUCHPAD		0x03
-@@ -85,6 +86,8 @@ MODULE_LICENSE("GPL");
+@@ -86,6 +87,8 @@ MODULE_LICENSE("GPL");
  #define MT_BUTTONTYPE_CLICKPAD		0
  
  #define MS_TYPE_COVER_FEATURE_REPORT_USAGE	0xff050086
@@ -7983,7 +7983,7 @@ index 3acf2719cea4..a359afb687af 100644
  
  enum latency_mode {
  	HID_LATENCY_NORMAL = 0,
-@@ -422,6 +425,7 @@ static const struct mt_class mt_classes[] = {
+@@ -423,6 +426,7 @@ static const struct mt_class mt_classes[] = {
  	},
  	{ .name = MT_CLS_WIN_8_MS_SURFACE_TYPE_COVER,
  		.quirks = MT_QUIRK_HAS_TYPE_COVER_BACKLIGHT |
@@ -7991,7 +7991,7 @@ index 3acf2719cea4..a359afb687af 100644
  			MT_QUIRK_ALWAYS_VALID |
  			MT_QUIRK_IGNORE_DUPLICATES |
  			MT_QUIRK_HOVERING |
-@@ -1403,6 +1407,9 @@ static int mt_input_mapping(struct hid_device *hdev, struct hid_input *hi,
+@@ -1438,6 +1442,9 @@ static int mt_input_mapping(struct hid_device *hdev, struct hid_input *hi,
  	    field->application != HID_CP_CONSUMER_CONTROL &&
  	    field->application != HID_GD_WIRELESS_RADIO_CTLS &&
  	    field->application != HID_GD_SYSTEM_MULTIAXIS &&
@@ -8001,7 +8001,7 @@ index 3acf2719cea4..a359afb687af 100644
  	    !(field->application == HID_VD_ASUS_CUSTOM_MEDIA_KEYS &&
  	      application->quirks & MT_QUIRK_ASUS_CUSTOM_UP))
  		return -1;
-@@ -1430,6 +1437,21 @@ static int mt_input_mapping(struct hid_device *hdev, struct hid_input *hi,
+@@ -1465,6 +1472,21 @@ static int mt_input_mapping(struct hid_device *hdev, struct hid_input *hi,
  		return 1;
  	}
  
@@ -8023,7 +8023,7 @@ index 3acf2719cea4..a359afb687af 100644
  	if (rdata->is_mt_collection)
  		return mt_touch_input_mapping(hdev, hi, field, usage, bit, max,
  					      application);
-@@ -1451,6 +1473,7 @@ static int mt_input_mapped(struct hid_device *hdev, struct hid_input *hi,
+@@ -1486,6 +1508,7 @@ static int mt_input_mapped(struct hid_device *hdev, struct hid_input *hi,
  {
  	struct mt_device *td = hid_get_drvdata(hdev);
  	struct mt_report_data *rdata;
@@ -8031,7 +8031,7 @@ index 3acf2719cea4..a359afb687af 100644
  
  	rdata = mt_find_report_data(td, field->report);
  	if (rdata && rdata->is_mt_collection) {
-@@ -1458,6 +1481,19 @@ static int mt_input_mapped(struct hid_device *hdev, struct hid_input *hi,
+@@ -1493,6 +1516,19 @@ static int mt_input_mapped(struct hid_device *hdev, struct hid_input *hi,
  		return -1;
  	}
  
@@ -8051,7 +8051,7 @@ index 3acf2719cea4..a359afb687af 100644
  	/* let hid-core decide for the others */
  	return 0;
  }
-@@ -1467,11 +1503,21 @@ static int mt_event(struct hid_device *hid, struct hid_field *field,
+@@ -1502,11 +1538,21 @@ static int mt_event(struct hid_device *hid, struct hid_field *field,
  {
  	struct mt_device *td = hid_get_drvdata(hid);
  	struct mt_report_data *rdata;
@@ -8073,7 +8073,7 @@ index 3acf2719cea4..a359afb687af 100644
  	return 0;
  }
  
-@@ -1646,6 +1692,42 @@ static void mt_post_parse(struct mt_device *td, struct mt_application *app)
+@@ -1689,6 +1735,42 @@ static void mt_post_parse(struct mt_device *td, struct mt_application *app)
  		app->quirks &= ~MT_QUIRK_CONTACT_CNT_ACCURATE;
  }
  
@@ -8116,7 +8116,7 @@ index 3acf2719cea4..a359afb687af 100644
  static int mt_input_configured(struct hid_device *hdev, struct hid_input *hi)
  {
  	struct mt_device *td = hid_get_drvdata(hdev);
-@@ -1694,6 +1776,13 @@ static int mt_input_configured(struct hid_device *hdev, struct hid_input *hi)
+@@ -1737,6 +1819,13 @@ static int mt_input_configured(struct hid_device *hdev, struct hid_input *hi)
  		/* force BTN_STYLUS to allow tablet matching in udev */
  		__set_bit(BTN_STYLUS, hi->input->keybit);
  		break;
@@ -8130,7 +8130,7 @@ index 3acf2719cea4..a359afb687af 100644
  	default:
  		suffix = "UNKNOWN";
  		break;
-@@ -1779,30 +1868,6 @@ static void mt_expired_timeout(struct timer_list *t)
+@@ -1822,30 +1911,6 @@ static void mt_expired_timeout(struct timer_list *t)
  	clear_bit_unlock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags);
  }
  
@@ -8161,7 +8161,7 @@ index 3acf2719cea4..a359afb687af 100644
  static void update_keyboard_backlight(struct hid_device *hdev, bool enabled)
  {
  	struct usb_device *udev = hid_to_usb_dev(hdev);
-@@ -1811,8 +1876,9 @@ static void update_keyboard_backlight(struct hid_device *hdev, bool enabled)
+@@ -1854,8 +1919,9 @@ static void update_keyboard_backlight(struct hid_device *hdev, bool enabled)
  	/* Wake up the device in case it's already suspended */
  	pm_runtime_get_sync(&udev->dev);
  
@@ -8173,7 +8173,7 @@ index 3acf2719cea4..a359afb687af 100644
  		hid_err(hdev, "couldn't find backlight field\n");
  		goto out;
  	}
-@@ -1949,13 +2015,24 @@ static int mt_suspend(struct hid_device *hdev, pm_message_t state)
+@@ -1992,13 +2058,24 @@ static int mt_suspend(struct hid_device *hdev, pm_message_t state)
  
  static int mt_reset_resume(struct hid_device *hdev)
  {
@@ -8198,7 +8198,7 @@ index 3acf2719cea4..a359afb687af 100644
  	/* Some Elan legacy devices require SET_IDLE to be set on resume.
  	 * It should be safe to send it to other devices too.
  	 * Tested on 3M, Stantum, Cypress, Zytronic, eGalax, and Elan panels. */
-@@ -1964,12 +2041,31 @@ static int mt_resume(struct hid_device *hdev)
+@@ -2007,12 +2084,31 @@ static int mt_resume(struct hid_device *hdev)
  
  	mt_set_modes(hdev, HID_LATENCY_NORMAL, TOUCHPAD_REPORT_ALL);
  
@@ -8234,10 +8234,10 @@ index 3acf2719cea4..a359afb687af 100644
 2.51.0
 
 
-From 3958f7c7789b63dda7db7bb017655690bfcdb8ba Mon Sep 17 00:00:00 2001
+From 58f0fcdb140f2921de3743cbe3100f4a28286967 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 19 Feb 2023 22:12:24 +0100
-Subject: [PATCH 24/37] PCI: Add quirk to prevent calling shutdown mehtod
+Subject: [PATCH 24/37] PCI: Add quirk to prevent calling shutdown method
 
 Work around buggy EFI firmware: On some Microsoft Surface devices
 (Surface Pro 9 and Surface Laptop 5) the EFI ResetSystem call with
@@ -8333,7 +8333,7 @@ index d56d0dd80afb..4bd88eda9c7f 100644
 2.51.0
 
 
-From 86a8bfe78d783be1c057f2cc005ecbe73080da9a Mon Sep 17 00:00:00 2001
+From 27421888e182f19a9274e765eea4703358e7d2df Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 12 Mar 2023 01:41:57 +0100
 Subject: [PATCH 25/37] platform/surface: gpe: Add support for Surface Pro 9
@@ -8386,7 +8386,7 @@ index b359413903b1..b4496db79f39 100644
 2.51.0
 
 
-From 60e464e46705628f87787a0b23aa2b2a92ab04ce Mon Sep 17 00:00:00 2001
+From 421cc8fd71f464256523f72b1494b6aab587ba88 Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:56:57 +0200
 Subject: [PATCH 26/37] ACPI: delay enumeration of devices with a _DEP pointing
@@ -8464,7 +8464,7 @@ index 5a3312fc0ea0..370492b3a082 100644
 2.51.0
 
 
-From fae5714f525711894eb29561a07e339122023fbb Mon Sep 17 00:00:00 2001
+From 54ca0aac875f07a216b5dd683cf3413efa52faa6 Mon Sep 17 00:00:00 2001
 From: zouxiaoh <xiaohong.zou@intel.com>
 Date: Fri, 25 Jun 2021 08:52:59 +0800
 Subject: [PATCH 27/37] iommu: intel-ipu: use IOMMU passthrough mode for Intel
@@ -8492,7 +8492,7 @@ Signed-off-by: Jan200101 <sentrycraft123@gmail.com>
  1 file changed, 30 insertions(+)
 
 diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 56db67deb555..78c6b99049d4 100644
+index 98def863f736..15af4773df7e 100644
 --- a/drivers/iommu/intel/iommu.c
 +++ b/drivers/iommu/intel/iommu.c
 @@ -44,6 +44,13 @@
@@ -8509,7 +8509,7 @@ index 56db67deb555..78c6b99049d4 100644
  #define IOAPIC_RANGE_START	(0xfee00000)
  #define IOAPIC_RANGE_END	(0xfeefffff)
  #define IOVA_START_ADDR		(0x1000)
-@@ -213,12 +220,14 @@ int intel_iommu_enabled = 0;
+@@ -215,12 +222,14 @@ int intel_iommu_enabled = 0;
  EXPORT_SYMBOL_GPL(intel_iommu_enabled);
  
  static int dmar_map_ipts = 1;
@@ -8524,7 +8524,7 @@ index 56db67deb555..78c6b99049d4 100644
  #define IDENTMAP_IPTS		16
  
  const struct iommu_ops intel_iommu_ops;
-@@ -1907,6 +1916,9 @@ static int device_def_domain_type(struct device *dev)
+@@ -1905,6 +1914,9 @@ static int device_def_domain_type(struct device *dev)
  		if ((iommu_identity_mapping & IDENTMAP_AZALIA) && IS_AZALIA(pdev))
  			return IOMMU_DOMAIN_IDENTITY;
  
@@ -8534,7 +8534,7 @@ index 56db67deb555..78c6b99049d4 100644
  		if ((iommu_identity_mapping & IDENTMAP_IPTS) && IS_IPTS(pdev))
  			return IOMMU_DOMAIN_IDENTITY;
  	}
-@@ -2199,6 +2211,9 @@ static int __init init_dmars(void)
+@@ -2197,6 +2209,9 @@ static int __init init_dmars(void)
  		iommu_set_root_entry(iommu);
  	}
  
@@ -8544,7 +8544,7 @@ index 56db67deb555..78c6b99049d4 100644
  	if (!dmar_map_ipts)
  		iommu_identity_mapping |= IDENTMAP_IPTS;
  
-@@ -4427,6 +4442,18 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
+@@ -4529,6 +4544,18 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
  	disable_igfx_iommu = 1;
  }
  
@@ -8563,7 +8563,7 @@ index 56db67deb555..78c6b99049d4 100644
  static void quirk_iommu_ipts(struct pci_dev *dev)
  {
  	if (!IS_IPTS(dev))
-@@ -4477,6 +4504,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
+@@ -4579,6 +4606,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163A, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163D, quirk_iommu_igfx);
  
@@ -8577,7 +8577,7 @@ index 56db67deb555..78c6b99049d4 100644
 2.51.0
 
 
-From f45ceafb8ffe56c663017f28e76845debdda8b5f Mon Sep 17 00:00:00 2001
+From f4fdb2fa42aa88a48f0e98a15d52526c0df2d2d0 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Sun, 10 Oct 2021 20:57:02 +0200
 Subject: [PATCH 28/37] platform/x86: int3472: Enable I2c daisy chain
@@ -8616,7 +8616,7 @@ index 0133405697dc..9e0763bdc758 100644
 2.51.0
 
 
-From 2080472bb8959dd4b8ac8b48496b6aca223e4d00 Mon Sep 17 00:00:00 2001
+From fd0b792098f0bd8c195c7c0509bba752af680c84 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <dan.scally@ideasonboard.com>
 Date: Tue, 21 Mar 2023 13:45:26 +0000
 Subject: [PATCH 29/37] media: i2c: Clarify that gain is Analogue gain in
@@ -8658,7 +8658,7 @@ index 3226888d77e9..3bfe45b764f7 100644
 2.51.0
 
 
-From 1af9fa1082d20b95799428482ee6305afe5abe54 Mon Sep 17 00:00:00 2001
+From 7297d8b131017224a9c39af197c8892c64883151 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <dan.scally@ideasonboard.com>
 Date: Wed, 22 Mar 2023 11:01:42 +0000
 Subject: [PATCH 30/37] media: v4l2-core: Acquire privacy led in
@@ -8711,7 +8711,7 @@ index cb153ce42c45..f11b499e14bb 100644
 2.51.0
 
 
-From e2844ced753852a728d3ed6abd75178b367a64c7 Mon Sep 17 00:00:00 2001
+From 968d42fb87c417b797d274309811d5628f948e54 Mon Sep 17 00:00:00 2001
 From: Kate Hsuan <hpa@redhat.com>
 Date: Tue, 21 Mar 2023 23:37:16 +0800
 Subject: [PATCH 31/37] platform: x86: int3472: Add MFD cell for tps68470 LED
@@ -8754,7 +8754,7 @@ index 9e0763bdc758..0976b267972b 100644
 2.51.0
 
 
-From 6a1d4d27fa49e61fcf9d65d015595579de5e7752 Mon Sep 17 00:00:00 2001
+From 80740aabb7f0e83174560fc10b9dd31b436194b9 Mon Sep 17 00:00:00 2001
 From: Kate Hsuan <hpa@redhat.com>
 Date: Tue, 21 Mar 2023 23:37:17 +0800
 Subject: [PATCH 32/37] include: mfd: tps68470: Add masks for LEDA and LEDB
@@ -8797,7 +8797,7 @@ index 7807fa329db0..2d2abb25b944 100644
 2.51.0
 
 
-From 83354e5fa8a54f942cde4ecd28f5d5d90b304695 Mon Sep 17 00:00:00 2001
+From 2b9373db67a61776e86ab01812b90a1edf73e838 Mon Sep 17 00:00:00 2001
 From: Kate Hsuan <hpa@redhat.com>
 Date: Tue, 21 Mar 2023 23:37:18 +0800
 Subject: [PATCH 33/37] leds: tps68470: Add LED control for tps68470
@@ -9050,7 +9050,7 @@ index 000000000000..35aeb5db89c8
 2.51.0
 
 
-From 1964ef50c48bae752223e5bbc41ae7c1d20c8807 Mon Sep 17 00:00:00 2001
+From c35e67302d6c70740f9b3d2ec21ae77718dd5f7b Mon Sep 17 00:00:00 2001
 From: mojyack <mojyack@gmail.com>
 Date: Tue, 26 Mar 2024 05:55:44 +0900
 Subject: [PATCH 34/37] media: i2c: dw9719: fix probe error on surface go 2
@@ -9084,7 +9084,7 @@ index 032fbcb981f2..e03a1d8cdcb4 100644
 2.51.0
 
 
-From 25bd53f71d3f6ffc6989c278263d802e57229555 Mon Sep 17 00:00:00 2001
+From c8bf038c1969d0df564caf49e6d3fe6e5f6eabb8 Mon Sep 17 00:00:00 2001
 From: Sachi King <nakato@nakato.io>
 Date: Sat, 29 May 2021 17:47:38 +1000
 Subject: [PATCH 35/37] ACPI: Add quirk for Surface Laptop 4 AMD missing irq 7
@@ -9153,7 +9153,7 @@ index 9fa321a95eb3..8914a922be2b 100644
 2.51.0
 
 
-From d9781ed3380291677b5358c564d1bd140f9faca5 Mon Sep 17 00:00:00 2001
+From 6650aba8b724b7a48ed7be3847bc67261acda648 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 3 Jun 2021 14:04:26 +0200
 Subject: [PATCH 36/37] ACPI: Add AMD 13" Surface Laptop 4 model to irq 7
@@ -9197,7 +9197,7 @@ index 8914a922be2b..c43d0a553867 100644
 2.51.0
 
 
-From f376f497698d12d64fbacd3b835d1ed9b9e1c98e Mon Sep 17 00:00:00 2001
+From f0bd4ac244bfbcf03549c67fd5a8c9ca2184073e Mon Sep 17 00:00:00 2001
 From: "Bart Groeneveld | GPX Solutions B.V" <bart@gpxbv.nl>
 Date: Mon, 5 Dec 2022 16:08:46 +0100
 Subject: [PATCH 37/37] acpi: allow usage of acpi_tad on HW-reduced platforms
